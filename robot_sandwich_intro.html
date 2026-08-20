@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Teach a Robot to Make a Sandwich</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700&family=JetBrains+Mono:wght@400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0e14;
+    --bg2:#0d1320;
+    --panel:#111a28;
+    --panel2:#0e1622;
+    --line:#1d2b3e;
+    --ink:#cdd9e8;
+    --muted:#6a7c92;
+    --cyan:#54d4e8;
+    --cyan-dim:#2b7d8c;
+    --gold:#f2c14e;
+    --gold-dim:#a8842a;
+    --red:#ef6b53;
+    --green:#6ee7a0;
+    --mono:'JetBrains Mono','Courier New',monospace;
+    --disp:'Rajdhani','Arial Narrow',system-ui,sans-serif;
+    --body:'DM Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--body);
+    overflow:hidden;
+    position:relative;
+  }
+  /* dot grid + scanlines */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:radial-gradient(var(--line) 1px,transparent 1px);
+    background-size:24px 24px;opacity:.35;
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:50;pointer-events:none;
+    background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0 2px,rgba(0,0,0,.18) 2px 3px);
+    mix-blend-mode:multiply;opacity:.6;
+  }
+  .stage{position:relative;z-index:1;height:100%;display:flex;align-items:center;justify-content:center;padding:48px 24px 84px}
+  .slide{
+    display:none;width:min(960px,100%);max-height:100%;
+    animation:rise .45s ease both;
+  }
+  .slide.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--cyan);display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--cyan);opacity:.7}
+  .eyebrow .step{color:var(--gold)}
+
+  h1{font-family:var(--disp);font-weight:700;line-height:.98;letter-spacing:.01em;
+     font-size:clamp(2.3rem,7vw,5rem);text-transform:uppercase}
+  h2{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:.01em;
+     font-size:clamp(1.8rem,5vw,3.2rem);text-transform:uppercase;margin-bottom:18px}
+  h1 .accent,h2 .accent{color:var(--gold)}
+  h1 .cy,h2 .cy{color:var(--cyan)}
+  p{font-size:clamp(1rem,2.1vw,1.22rem);line-height:1.6;color:var(--ink);max-width:62ch}
+  p.lead{font-size:clamp(1.1rem,2.5vw,1.5rem);color:var(--muted)}
+  .muted{color:var(--muted)}
+  strong{color:var(--ink);font-weight:700}
+  .cur{display:inline-block;width:.6ch;background:var(--cyan);animation:blink 1.1s steps(1) infinite;margin-left:2px}
+  @keyframes blink{50%{opacity:0}}
+
+  .grid{display:grid;gap:28px;align-items:center}
+  .grid.two{grid-template-columns:1fr 1fr}
+  @media(max-width:760px){.grid.two{grid-template-columns:1fr}}
+
+  .card{
+    background:linear-gradient(160deg,var(--panel),var(--panel2));
+    border:1px solid var(--line);border-radius:10px;padding:20px 22px;
+  }
+  .card.cy{border-color:var(--cyan-dim);box-shadow:0 0 0 1px rgba(84,212,232,.08),0 14px 40px -24px rgba(84,212,232,.4)}
+  .card.gd{border-color:var(--gold-dim)}
+  .card.rd{border-color:rgba(239,107,83,.45)}
+  .card.gn{border-color:rgba(110,231,160,.4)}
+
+  .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+       padding:3px 9px;border-radius:4px;display:inline-block}
+  .tag.cy{color:var(--cyan);border:1px solid var(--cyan-dim)}
+  .tag.gd{color:var(--gold);border:1px solid var(--gold-dim)}
+  .tag.rd{color:var(--red);border:1px solid rgba(239,107,83,.5)}
+  .tag.gn{color:var(--green);border:1px solid rgba(110,231,160,.5)}
+
+  .term{font-family:var(--mono);color:var(--cyan)}
+  .cmd{font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);
+       border-left:3px solid var(--gold);border-radius:6px;padding:12px 14px;
+       color:var(--ink);font-size:clamp(.85rem,1.9vw,1.05rem);display:block}
+  .cmd .you{color:var(--muted)}
+  pre.ascii{font-family:var(--mono);color:var(--cyan);background:var(--bg2);
+     border:1px solid var(--line);border-radius:8px;padding:16px;overflow:auto;
+     font-size:clamp(.62rem,1.5vw,.86rem);line-height:1.35;white-space:pre}
+  pre.ascii .g{color:var(--gold)}
+  pre.ascii .m{color:var(--muted)}
+  pre.ascii .r{color:var(--red)}
+
+  ul.clean{list-style:none;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+  ul.clean li{display:flex;gap:12px;align-items:flex-start;font-size:clamp(.95rem,2vw,1.12rem);line-height:1.45}
+  ul.clean li::before{content:"▸";color:var(--gold);font-family:var(--mono);line-height:1.5}
+  ul.clean li.bad::before{content:"✕";color:var(--red)}
+  ul.clean li.ok::before{content:"✓";color:var(--green)}
+
+  .map{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+  .maprow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center}
+  .maprow .from{font-family:var(--body);color:var(--ink);text-align:right}
+  .maprow .arrow{font-family:var(--mono);color:var(--gold)}
+  .maprow .to{font-family:var(--mono);color:var(--cyan)}
+  @media(max-width:600px){.maprow{grid-template-columns:1fr;text-align:left}.maprow .from{text-align:left}}
+
+  /* ladder */
+  .ladder{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .rung{font-family:var(--mono);font-size:clamp(.75rem,1.8vw,1rem);padding:9px 13px;border-radius:6px;
+        border:1px solid var(--line);background:var(--panel)}
+  .rung b{color:var(--gold)}
+  .ladder .sep{color:var(--cyan);font-family:var(--mono)}
+  .rung.hot{border-color:var(--cyan-dim);color:var(--cyan)}
+
+  /* mermaid + fallback */
+  .mermaid{font-family:var(--mono)!important;display:flex;justify-content:center}
+  .ascii-fallback{display:none}
+  .nomermaid .mermaid{display:none}
+  .nomermaid .ascii-fallback{display:block}
+
+  svg.scene{width:100%;height:auto;display:block}
+
+  /* chrome */
+  .topbar{position:fixed;top:0;left:0;right:0;height:4px;z-index:60;background:var(--line)}
+  .progress{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:width .4s ease}
+  .hud{position:fixed;bottom:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
+       padding:14px 22px;font-family:var(--mono);font-size:.78rem;color:var(--muted);
+       background:linear-gradient(0deg,var(--bg),transparent)}
+  .hud .title{letter-spacing:.18em;text-transform:uppercase}
+  .nav{display:flex;gap:8px}
+  .nav button{font-family:var(--mono);font-size:.78rem;color:var(--ink);background:var(--panel);
+    border:1px solid var(--line);border-radius:6px;padding:7px 12px;cursor:pointer;transition:.15s}
+  .nav button:hover{border-color:var(--cyan-dim);color:var(--cyan)}
+  .nav button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .counter b{color:var(--cyan)}
+  .hint{font-size:.7rem;opacity:.6}
+  @media(max-width:600px){.hint{display:none}.hud{padding:12px 14px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="progress" id="progress"></div></div>
+<div class="stage" id="stage">
+
+  <!-- 1 TITLE -->
+  <section class="slide active">
+    <div class="eyebrow">Communication Spine <span class="step">// Exercise 00</span></div>
+    <h1>How to Teach<br>a Robot to Make<br>a <span class="accent">Sandwich</span><span class="cur">&nbsp;</span></h1>
+    <p class="lead" style="margin-top:22px">Before we write a single line of code, a question that turns out to be the whole job:
+      <span style="color:var(--cyan)">how do you give an instruction that can't be misread?</span></p>
+    <div style="margin-top:26px"><span class="tag cy">press → or space to begin</span></div>
+  </section>
+
+  <!-- 2 SETUP -->
+  <section class="slide">
+    <div class="eyebrow">The Setup <span class="step">// 01</span></div>
+    <div class="grid two">
+      <div>
+        <h2>Meet your <span class="cy">robot</span>.</h2>
+        <p>It is fast, tireless, and follows orders perfectly. It has exactly one flaw: it does precisely what you say and <strong>nothing you merely meant</strong>.</p>
+        <p style="margin-top:14px" class="muted">No common sense. No benefit of the doubt. No "you know what I mean." It is the most literal thing you will ever work with.</p>
+        <p style="margin-top:14px"><span class="term">// sound familiar? hold that thought.</span></p>
+      </div>
+      <div class="card cy">
+        <svg class="scene" viewBox="0 0 240 220" role="img" aria-label="A friendly blocky robot">
+          <line x1="120" y1="40" x2="120" y2="22" stroke="#a8842a" stroke-width="3"/>
+          <circle cx="120" cy="17" r="6" fill="#f2c14e"/>
+          <circle cx="120" cy="17" r="11" fill="none" stroke="#f2c14e" stroke-width="1" opacity=".4"/>
+          <rect x="84" y="40" width="72" height="56" rx="9" fill="#13202f" stroke="#54d4e8" stroke-width="2"/>
+          <circle cx="104" cy="64" r="7" fill="#54d4e8"/><circle cx="136" cy="64" r="7" fill="#54d4e8"/>
+          <circle cx="104" cy="64" r="12" fill="none" stroke="#54d4e8" opacity=".3"/>
+          <circle cx="136" cy="64" r="12" fill="none" stroke="#54d4e8" opacity=".3"/>
+          <rect x="100" y="82" width="40" height="5" rx="2" fill="#2b7d8c"/>
+          <rect x="74" y="102" width="92" height="70" rx="10" fill="#0e1826" stroke="#54d4e8" stroke-width="2"/>
+          <rect x="92" y="116" width="56" height="30" rx="5" fill="#0a0e14" stroke="#a8842a"/>
+          <text x="120" y="136" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="13" fill="#f2c14e">READY</text>
+          <rect x="50" y="110" width="20" height="48" rx="7" fill="#13202f" stroke="#54d4e8" stroke-width="2"/>
+          <rect x="170" y="110" width="20" height="48" rx="7" fill="#13202f" stroke="#54d4e8" stroke-width="2"/>
+          <rect x="86" y="176" width="22" height="30" rx="6" fill="#13202f" stroke="#54d4e8" stroke-width="2"/>
+          <rect x="132" y="176" width="22" height="30" rx="6" fill="#13202f" stroke="#54d4e8" stroke-width="2"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 MISSION -->
+  <section class="slide">
+    <div class="eyebrow">The Mission <span class="step">// 02</span></div>
+    <h2>Your order is simple.</h2>
+    <div class="card gd" style="margin-top:6px;max-width:640px">
+      <span class="tag gd">YOU → ROBOT</span>
+      <p style="font-family:var(--mono);font-size:clamp(1.1rem,3vw,1.7rem);color:var(--gold);margin-top:14px">"Make me a sandwich."</p>
+    </div>
+    <p style="margin-top:22px">You know what that means. You've made a thousand sandwiches. The knowledge is so obvious it's invisible — which is exactly the problem. <strong>The robot can't see what's invisible to you.</strong></p>
+  </section>
+
+  <!-- 4 ATTEMPT 1 -->
+  <section class="slide">
+    <div class="eyebrow">Attempt #1 <span class="step">// 03</span></div>
+    <div class="grid two">
+      <div>
+        <span class="cmd"><span class="you">you@kitchen:~$</span> put the peanut butter on the bread</span>
+        <p style="margin-top:18px">Reasonable. Clear, even. So the robot does it — literally. It picks up the jar. It places the jar. <strong>On the bread.</strong></p>
+        <div style="margin-top:16px"><span class="tag gn">✓ INSTRUCTION FOLLOWED EXACTLY</span></div>
+        <p class="muted" style="margin-top:14px">It is not broken. It is not being difficult. It did what you said.</p>
+      </div>
+      <div class="card rd">
+        <svg class="scene" viewBox="0 0 240 200" role="img" aria-label="Robot has placed a closed peanut butter jar on top of a slice of bread">
+          <!-- plate -->
+          <ellipse cx="120" cy="172" rx="92" ry="14" fill="#0e1826" stroke="#1d2b3e"/>
+          <!-- bread slice -->
+          <path d="M62 150 q-6 -34 18 -40 q40 -12 80 0 q24 6 18 40 Z" fill="#caa14a" stroke="#a8842a" stroke-width="2"/>
+          <path d="M70 150 q-4 -26 14 -31 q36 -10 72 0 q18 5 14 31 Z" fill="#e0b85e"/>
+          <!-- jar sitting ON TOP -->
+          <rect x="96" y="58" width="48" height="62" rx="6" fill="#0e1826" stroke="#54d4e8" stroke-width="2"/>
+          <rect x="100" y="74" width="40" height="40" rx="3" fill="#7a5a2a"/>
+          <rect x="92" y="50" width="56" height="12" rx="3" fill="#13202f" stroke="#f2c14e" stroke-width="2"/>
+          <text x="120" y="100" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#f2c14e">P.B.</text>
+          <!-- lid still closed marker -->
+          <text x="120" y="40" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#ef6b53">[ LID: CLOSED ]</text>
+        </svg>
+        <p style="font-family:var(--mono);font-size:.78rem;color:var(--red);text-align:center;margin-top:6px">output: jar.placeOn(bread) // technically correct</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 WHAT HAPPENED -->
+  <section class="slide">
+    <div class="eyebrow">Why It Failed <span class="step">// 04</span></div>
+    <h2>The robot was <span class="cy">right</span>.<br>Your instruction was <span class="accent">wrong</span>.</h2>
+    <div class="grid two" style="margin-top:8px">
+      <div class="card">
+        <span class="tag cy">WHAT YOU SAID</span>
+        <p style="margin-top:10px">Put the peanut butter on the bread.</p>
+        <p class="muted" style="margin-top:8px;font-size:.95rem">Two nouns, one position. Unambiguous to a machine.</p>
+      </div>
+      <div class="card gd">
+        <span class="tag gd">WHAT YOU MEANT</span>
+        <p style="margin-top:10px">Open the jar, take a knife, scoop a spreadable amount, and distribute it across one face of one slice.</p>
+        <p class="muted" style="margin-top:8px;font-size:.95rem">~12 hidden steps, all assumed.</p>
+      </div>
+    </div>
+    <p style="margin-top:22px">The gap between <strong>what you said</strong> and <strong>what you meant</strong> has a name. Two, actually — and you'll meet them every day as a programmer.</p>
+  </section>
+
+  <!-- 6 THESIS -->
+  <section class="slide" style="text-align:center">
+    <div class="eyebrow" style="justify-content:center">The Whole Point <span class="step">// 05</span></div>
+    <h1 style="font-size:clamp(2.4rem,9vw,6rem)">Giving<br>instructions<br>is <span class="accent">hard</span>.</h1>
+    <p class="lead" style="margin:24px auto 0">Not because you're bad at it. Because language leans on shared understanding, and a machine shares none of yours.</p>
+  </section>
+
+  <!-- 7 ATTEMPT 2 -->
+  <section class="slide">
+    <div class="eyebrow">Attempt #2 <span class="step">// 06</span></div>
+    <div class="grid two">
+      <div>
+        <p class="muted">You learn. You get specific:</p>
+        <span class="cmd" style="margin-top:8px"><span class="you">you@kitchen:~$</span> open the jar and spread the<br>&nbsp;&nbsp;peanut butter</span>
+        <p style="margin-top:18px">Better! But you never said <strong>with what</strong>. The robot has no knife in its instructions — so it improvises with the only tool it has. Itself.</p>
+        <div style="margin-top:16px"><span class="tag rd">✕ NEW FAILURE UNLOCKED</span></div>
+        <p class="muted" style="margin-top:12px">Fixing one ambiguity reveals the next. This is the job.</p>
+      </div>
+      <div class="card rd">
+        <svg class="scene" viewBox="0 0 240 200" role="img" aria-label="Robot squeezing peanut butter everywhere with no knife, making a mess">
+          <ellipse cx="120" cy="178" rx="96" ry="13" fill="#0e1826" stroke="#1d2b3e"/>
+          <!-- bread, mostly bare -->
+          <path d="M150 168 q-4 -22 12 -27 q30 -8 58 0 q16 4 12 27 Z" fill="#e0b85e" stroke="#a8842a"/>
+          <!-- robot arm reaching, squeezing jar -->
+          <rect x="40" y="56" width="42" height="56" rx="6" fill="#0e1826" stroke="#54d4e8" stroke-width="2" transform="rotate(-18 61 84)"/>
+          <text x="61" y="92" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#f2c14e" transform="rotate(-18 61 84)">P.B.</text>
+          <!-- peanut butter blobs flying everywhere -->
+          <circle cx="96" cy="92" r="9" fill="#7a5a2a"/>
+          <circle cx="118" cy="104" r="7" fill="#7a5a2a"/>
+          <circle cx="138" cy="120" r="11" fill="#7a5a2a"/>
+          <circle cx="160" cy="98" r="6" fill="#7a5a2a"/>
+          <circle cx="108" cy="130" r="8" fill="#7a5a2a"/>
+          <path d="M84 88 q24 8 56 34" stroke="#7a5a2a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+          <text x="120" y="34" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#ef6b53">ERROR: no spread tool defined</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 HIDDEN KNOWLEDGE -->
+  <section class="slide">
+    <div class="eyebrow">The Hidden Knowledge <span class="step">// 07</span></div>
+    <h2>Every order you gave<br>quietly <span class="cy">assumed</span> things.</h2>
+    <p>Humans fill gaps automatically. The robot exposes every gap you didn't know you left:</p>
+    <ul class="clean" style="margin-top:14px">
+      <li class="bad">A jar must be <strong>opened</strong> before its contents exist to you</li>
+      <li class="bad">"Spread" needs a <strong>tool</strong> — a knife, held a particular way</li>
+      <li class="bad">"On the bread" means <strong>one face of one slice</strong>, not on top of the loaf</li>
+      <li class="bad">A sandwich implies <strong>two</strong> slices, and a second one to close it</li>
+      <li class="bad">"Some" peanut butter is a <strong>quantity</strong> the robot can't guess</li>
+    </ul>
+    <p style="margin-top:18px"><span class="term">These unstated assumptions are called <span style="color:var(--gold)">preconditions</span>. Naming them is half of programming.</span></p>
+  </section>
+
+  <!-- 9 DECOMPOSE (mermaid) -->
+  <section class="slide">
+    <div class="eyebrow">The Fix, Part 1 <span class="step">// 08</span></div>
+    <h2>Break it down<br>until <span class="cy">nothing</span> is assumed.</h2>
+    <p style="margin-bottom:16px">Decomposition: split one fuzzy command into atomic steps a literal machine can't misread.</p>
+    <div class="card">
+      <pre class="mermaid">
+flowchart TD
+    A([Start]) --> B[Get 2 slices of bread]
+    B --> C[Open the jar]
+    C --> D[Pick up the knife]
+    D --> E[Scoop one spoonful]
+    E --> F[Spread on top face of slice 1]
+    F --> G{Bread covered?}
+    G -- no --> E
+    G -- yes --> H[Place slice 2 on top]
+    H --> I([Sandwich])
+    style A fill:#13202f,stroke:#54d4e8,color:#54d4e8
+    style I fill:#13202f,stroke:#6ee7a0,color:#6ee7a0
+    style G fill:#0e1826,stroke:#f2c14e,color:#f2c14e
+      </pre>
+      <pre class="ascii ascii-fallback">
+        ┌─────────────┐
+        │    START    │
+        └──────┬──────┘
+               v
+   [ get 2 slices of bread ]
+               v
+   [ open the jar ]
+               v
+   [ pick up the knife ]
+               v
+ ┌───────────────────────────┐
+ │  scoop one spoonful  <─────┼──┐
+ └─────────────┬─────────────┘  │
+               v                │
+   [ spread on slice 1 ]        │ no
+               v                │
+        <span class="g">&lt; bread covered? &gt;</span> ───────────┘
+               │ yes
+               v
+   [ place slice 2 on top ]
+               v
+        ┌─────────────┐
+        │  <span class="g">SANDWICH</span>   │
+        └─────────────┘
+      </pre>
+    </div>
+    <p class="muted" style="margin-top:12px;font-size:.92rem">That diamond is a decision. That loop is iteration. You're already writing control flow.</p>
+  </section>
+
+  <!-- 10 SEQUENCE (mermaid) -->
+  <section class="slide">
+    <div class="eyebrow">The Fix, Part 2 <span class="step">// 09</span></div>
+    <h2>Order is part of the <span class="accent">meaning</span>.</h2>
+    <p style="margin-bottom:16px">Same steps, wrong sequence, different (and worse) sandwich. The robot won't reorder them for you.</p>
+    <div class="grid two">
+      <div class="card gn">
+        <span class="tag gn">CORRECT ORDER</span>
+        <pre class="mermaid" style="margin-top:8px">
+flowchart LR
+    O[open jar] --> S[spread] --> C[close sandwich]
+    style O fill:#0e1826,stroke:#6ee7a0,color:#6ee7a0
+    style S fill:#0e1826,stroke:#6ee7a0,color:#6ee7a0
+    style C fill:#0e1826,stroke:#6ee7a0,color:#6ee7a0
+        </pre>
+        <pre class="ascii ascii-fallback">open jar -&gt; spread -&gt; close</pre>
+      </div>
+      <div class="card rd">
+        <span class="tag rd">SWAPPED</span>
+        <pre class="mermaid" style="margin-top:8px">
+flowchart LR
+    C2[close sandwich] --> S2[spread] --> O2[open jar]
+    style C2 fill:#0e1826,stroke:#ef6b53,color:#ef6b53
+    style S2 fill:#0e1826,stroke:#ef6b53,color:#ef6b53
+    style O2 fill:#0e1826,stroke:#ef6b53,color:#ef6b53
+        </pre>
+        <pre class="ascii ascii-fallback r">close -&gt; spread -&gt; open jar</pre>
+        <p class="muted" style="font-size:.9rem;margin-top:8px">Spreading butter on a closed sandwich. Opening a jar you no longer need.</p>
+      </div>
+    </div>
+    <p style="margin-top:18px"><span class="term">A program is steps <span style="color:var(--gold)">in an order</span>. Change the order, change the result.</span></p>
+  </section>
+
+  <!-- 11 SUCCESS -->
+  <section class="slide">
+    <div class="eyebrow">Attempt #3 <span class="step">// 10</span></div>
+    <div class="grid two">
+      <div>
+        <p class="muted">A full, decomposed, ordered, assumption-free spec:</p>
+        <pre class="ascii" style="margin-top:10px">
+<span class="m">// sandwich.spec</span>
+get(bread, 2)
+open(jar)
+grip(knife)
+while not covered(slice[0]):
+  scoop(knife, jar)
+  spread(knife, slice[0])
+stack(slice[1], onto=slice[0])
+serve()
+        </pre>
+        <div style="margin-top:14px"><span class="tag gn">✓ SANDWICH ACHIEVED</span></div>
+      </div>
+      <div class="card gn">
+        <svg class="scene" viewBox="0 0 240 190" role="img" aria-label="A correctly made, neat sandwich on a plate">
+          <ellipse cx="120" cy="160" rx="98" ry="14" fill="#0e1826" stroke="#1d2b3e"/>
+          <!-- bottom slice -->
+          <path d="M58 150 q-4 -16 10 -20 q52 -12 104 0 q14 4 10 20 Z" fill="#caa14a" stroke="#a8842a" stroke-width="2"/>
+          <!-- pb layer -->
+          <path d="M62 132 q58 -14 116 0 q2 8 -4 12 q-54 -10 -108 0 q-6 -4 -4 -12 Z" fill="#7a5a2a"/>
+          <!-- top slice (dome) -->
+          <path d="M60 130 q-10 -46 22 -54 q38 -10 76 0 q32 8 22 54 Z" fill="#e0b85e" stroke="#a8842a" stroke-width="2"/>
+          <ellipse cx="100" cy="92" rx="4" ry="3" fill="#caa14a"/>
+          <ellipse cx="132" cy="100" rx="3" ry="2.5" fill="#caa14a"/>
+          <text x="120" y="40" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="12" fill="#6ee7a0">[ exit code 0 ]</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12 REVEAL -->
+  <section class="slide">
+    <div class="eyebrow">The Reveal <span class="step">// 11</span></div>
+    <h2>You just wrote<br>a <span class="cy">program</span>.</h2>
+    <p>The robot was never the point. The robot is every literal machine you'll ever instruct — and the failures you saw have real names you'll use all term:</p>
+    <div class="map" style="margin-top:16px">
+      <div class="maprow"><div class="from">Broke the grammar — bad word order, missing piece</div><div class="arrow">→</div><div class="to">syntax error</div></div>
+      <div class="maprow"><div class="from">Grammar fine, the action is impossible — spread with no tool</div><div class="arrow">→</div><div class="to">semantic error</div></div>
+      <div class="maprow"><div class="from">It ran, then fell over mid-task</div><div class="arrow">→</div><div class="to">runtime error</div></div>
+      <div class="maprow"><div class="from">It worked perfectly — and made the wrong thing</div><div class="arrow">→</div><div class="to">logic error</div></div>
+    </div>
+    <p class="muted" style="margin-top:18px;font-size:.95rem">Same robot. Same literal-mindedness. Whether it's a compiler, an interpreter, or the AI you'll prompt later — they all make sandwiches exactly the way you ask.</p>
+  </section>
+
+  <!-- 13 LADDER / CLOSE -->
+  <section class="slide" style="text-align:center">
+    <div class="eyebrow" style="justify-content:center">Where We're Headed <span class="step">// 12</span></div>
+    <h2>It's all the <span class="accent">same skill</span>,<br>getting more precise.</h2>
+    <div class="ladder" style="justify-content:center;margin:18px 0 8px">
+      <span class="rung"><b>Markdown</b><br>format</span><span class="sep">→</span>
+      <span class="rung"><b>Spec</b><br>intent</span><span class="sep">→</span>
+      <span class="rung"><b>User story</b><br>+ audience</span><span class="sep">→</span>
+      <span class="rung hot"><b>Prompt</b><br>intent, to a machine</span>
+    </div>
+    <p class="lead" style="margin:18px auto 0">Talking to a compiler, writing a spec for a teammate, prompting an AI — one skill. We start it here, with a sandwich.</p>
+    <p style="margin-top:20px"><span class="term" style="color:var(--cyan)">$ next: why are there different programming languages?<span class="cur">&nbsp;</span></span></p>
+  </section>
+
+</div>
+
+<div class="hud">
+  <span class="title">Robot · Sandwich · Intro</span>
+  <span class="counter">slide <b id="cur">1</b> / <span id="tot">13</span></span>
+  <span class="nav">
+    <button id="prev" aria-label="Previous slide">◂ prev</button>
+    <button id="next" aria-label="Next slide">next ▸</button>
+  </span>
+  <span class="hint">← → / space · swipe</span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"
+        onerror="document.body.classList.add('nomermaid')"></script>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0, total=slides.length;
+  document.getElementById('tot').textContent=total;
+  var progress=document.getElementById('progress');
+  var curEl=document.getElementById('cur');
+
+  var mermaidReady=false;
+  if(window.mermaid){
+    try{
+      mermaid.initialize({
+        startOnLoad:false, securityLevel:'loose',
+        theme:'base',
+        themeVariables:{
+          fontFamily:'JetBrains Mono, monospace',
+          background:'#0e1826',
+          primaryColor:'#13202f', primaryTextColor:'#cdd9e8', primaryBorderColor:'#54d4e8',
+          lineColor:'#6a7c92', secondaryColor:'#111a28', tertiaryColor:'#0e1826',
+          edgeLabelBackground:'#0a0e14', clusterBkg:'#0e1826'
+        }
+      });
+      mermaidReady=true;
+    }catch(e){ document.body.classList.add('nomermaid'); }
+  } else {
+    document.body.classList.add('nomermaid');
+  }
+
+  async function renderMermaid(slide){
+    if(!mermaidReady){ return; }
+    var nodes=[].slice.call(slide.querySelectorAll('.mermaid:not([data-processed])'));
+    if(!nodes.length) return;
+    try{ await mermaid.run({nodes:nodes}); }
+    catch(e){ document.body.classList.add('nomermaid'); }
+  }
+
+  function show(n){
+    i=Math.max(0,Math.min(total-1,n));
+    slides.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+    progress.style.width=((i)/(total-1)*100)+'%';
+    curEl.textContent=i+1;
+    renderMermaid(slides[i]);
+  }
+  function next(){ show(i+1); }
+  function prev(){ show(i-1); }
+
+  document.getElementById('next').addEventListener('click',next);
+  document.getElementById('prev').addEventListener('click',prev);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ show(0); }
+    else if(e.key==='End'){ show(total-1); }
+  });
+  // touch
+  var x0=null;
+  var stage=document.getElementById('stage');
+  stage.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+  stage.addEventListener('touchend',function(e){
+    if(x0===null) return;
+    var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>50){ dx<0?next():prev(); }
+    x0=null;
+  },{passive:true});
+
+  show(0);
+})();
+</script>
+</body>
+</html>

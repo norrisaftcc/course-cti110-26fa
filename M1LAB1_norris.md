@@ -1,0 +1,21 @@
+# A Norris
+## M1LAB1
+### 8/20/26
+#### User info
+
+Hi, this is a file about me!
+
+I'm Drew Norris, and I teach CTI-110-0003.
+
+My other courses:
+- CSC 134 (C++ Programming)
+- CTS 285 (Systems Analysis)
+
+Other interests:
+- My dog Esther
+- my yard
+
+Something interesting about IT:
+- You get paid to solve problems 
+
+
