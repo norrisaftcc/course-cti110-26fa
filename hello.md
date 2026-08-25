@@ -12,6 +12,7 @@ I'm Mr. Norris. I teach at FTCC. My classes include:
 My hobbies include:
 - walking my dog
 - working in the yard
+- mowing the lawn
 
 ## CTI 110
 
