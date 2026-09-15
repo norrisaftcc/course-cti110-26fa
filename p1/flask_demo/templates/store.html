@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FTCC Store</title>
+  <style>
+    :root { --ftcc-black: #000000; --ftcc-gold: #FFC72C; }
+    body {
+      background: var(--ftcc-black);
+      color: var(--ftcc-gold);
+      font-family: system-ui, sans-serif;
+      margin: 0;
+      padding: 2rem;
+    }
+    main { max-width: 32rem; margin: 0 auto; }
+    h1 { border-bottom: 3px solid var(--ftcc-gold); padding-bottom: .5rem; }
+    label { display: block; margin-top: 1rem; }
+    input {
+      width: 100%;
+      padding: .5rem;
+      background: #111;
+      color: var(--ftcc-gold);
+      border: 1px solid var(--ftcc-gold);
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: .6rem 1.2rem;
+      background: var(--ftcc-gold);
+      color: var(--ftcc-black);
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .receipt { margin-top: 2rem; border: 2px solid var(--ftcc-gold); padding: 1rem; }
+    .error { color: #ff6b6b; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Store Startup</h1>
+    <form method="post">
+      <label>Product name
+        <input name="product_name" value="{{ product_name or '' }}" required>
+      </label>
+      <label>Product count
+        <input name="product_count" value="{{ product_count or '' }}" required>
+      </label>
+      <label>Unit price
+        <input name="product_price" value="{{ product_price or '' }}" required>
+      </label>
+      <button type="submit">Open Store</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if show_receipt %}
+      <section class="receipt">
+        <h2>Customer Interface</h2>
+        <p>Welcome to the {{ product_name }} store</p>
+        <p>We have {{ product_count }} {{ product_name }}(s) at ${{ "%.2f"|format(product_price) }} each.</p>
+        <p>Total is: ${{ "%.2f"|format(total) }}.</p>
+      </section>
+    {% endif %}
+  </main>
+</body>
+</html>

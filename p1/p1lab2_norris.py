@@ -7,7 +7,7 @@
 # product_name, product_count, product_price
 
 # Hardcoding sets values directly.
-# product_name = "apples"   # strings use "quotes" and are made of text
+# product_name = 'apples'   # strings use "quotes" and are made of text
 # product_count = 100         # integers are whole numbers, no decimal
 # product_price = 1.50       # floats are decimal numbers
 
@@ -29,6 +29,7 @@ print("CUSTOMER INTERFACE")
 print("_" * 10) # ten _ in a row
 print("Welcome to the", product_name, "store")
 # For later -- f string with {variable:.2f} is the magic word to get 2 decimals
-print(f"We have {product_count} {product_name}(s) at ${product_price:.2f} each.")
+print("We have", product_count, product_name + "(s) at $", format(product_price, ".2f"), "each.")
+print(f"We have {product_count} {product_name}(s) at ${product_price:.2f} each.") 
 print(f"Total is: ${total:.2f}.")
 
