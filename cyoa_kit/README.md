@@ -40,7 +40,7 @@ On Windows, type `python` or `py` where this page says `python3`.
 | Option | What it does |
 |---|---|
 | `--display plain` | Plain text. This is the default. |
-| `--display ansi` | Colour, a typewriter, boxes and meter bars. Press Enter to skip the typewriter. |
+| `--display ansi` | Colour, a typewriter, boxes and meter bars. |
 | `--display curses` | A full-screen display. See the note below. |
 | `--seed 7` | Use dice seed 7. The same seed and the same answers always give the same game. |
 | `--echo` | Print each answer after its prompt. Use it when you pipe in a file of answers. |

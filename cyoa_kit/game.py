@@ -186,7 +186,14 @@ def main():
     except (OSError, ValueError) as error:
         sys.exit(f"Cannot load the story: {error}")
     display = pick_display(options["display"])
-    display.start(options["echo"])
+    try:
+        display.start(options["echo"])
+    except Exception as error:                      # e.g. curses cannot use this terminal
+        display.stop()                              # put the screen back first
+        print(f"Using the plain display: {display.__name__} could not start ({error}).",
+              file=sys.stderr)
+        display = pick_display("plain")
+        display.start(options["echo"])
     try:
         play(story, display, options["seed"], options["picked"])
     except KeyboardInterrupt:

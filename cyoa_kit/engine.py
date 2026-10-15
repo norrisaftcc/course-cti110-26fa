@@ -223,6 +223,20 @@ def save_game(state, path):
     with open(path, "w", encoding="utf-8") as file:
         json.dump(state, file, indent=2)
 
+def all_text(values):
+    """True if every value is a string."""
+    for value in values:
+        if not isinstance(value, str):
+            return False
+    return True
+
+def all_whole_numbers(values):
+    """True if every value is an int. True and False do not count."""
+    for value in values:
+        if isinstance(value, bool) or not isinstance(value, int):
+            return False
+    return True
+
 def load_game(story, path):
     """Read a saved state and check that it fits this story."""
     with open(path, encoding="utf-8") as file:
@@ -234,15 +248,20 @@ def load_game(story, path):
         raise ValueError(f"A save file needs exactly these keys: {', '.join(STATE_KEYS)}.")
     if state["story"] != story["id"]:
         raise ValueError(f"That save is for the story '{state['story']}', not '{story['id']}'.")
-    if find_scene(story, state["scene"]) is None and state["scene"] not in story["endings"]:
-        raise ValueError(f"The save names '{state['scene']}', which is not in this story.")
+    if not isinstance(state["scene"], str) or find_scene(story, state["scene"]) is None:
+        raise ValueError(f"The save names '{state['scene']}', which is not a scene in this story.")
     if not isinstance(state["group"], int) or state["group"] < 0:
         raise ValueError("The save's group must be a whole number, 0 or more.")
     for kind, declared in (("fields", story["fields"]), ("meters", story.get("meters", []))):
         wanted = sorted(item["id"] for item in declared)
         if not isinstance(state[kind], dict) or sorted(state[kind]) != wanted:
             raise ValueError(f"The save's {kind} do not match this story's {kind}: {wanted}.")
-    if not isinstance(state["flags"], list) or not isinstance(state["trail"], list):
-        raise ValueError("The save's flags and trail must be lists.")
+    if not all_text(state["fields"].values()):
+        raise ValueError("Every field in the save must be text in quotes.")
+    if not all_whole_numbers(state["meters"].values()):
+        raise ValueError("Every meter in the save must be a whole number.")
+    for kind in ("flags", "trail"):
+        if not isinstance(state[kind], list) or not all_text(state[kind]):
+            raise ValueError(f"The save's {kind} must be a list of text in quotes.")
     state["flags"] = sorted(state["flags"])
     return state

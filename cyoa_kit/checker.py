@@ -18,7 +18,7 @@ from collections import deque
 import engine
 
 # The SHA-256 of the kit's engine.py. Students never change the engine.
-ENGINE_SHA256 = "5c7e221756657f19c3e072e80cbb2b4b91a9997a9eb90c695c63c2ecee6d1b16"
+ENGINE_SHA256 = "b83169d5768545ed20b8e280fa495344800cc5b6e1f15e73e302d7da2ab4e7d9"
 STATE_CAP = 50000
 ID_PATTERN = re.compile(r"^[a-z][a-z0-9_]*$")
 SIMPLE_FORMS = [["flag"], ["field", "is"], ["gte", "meter"], ["lte", "meter"]]
@@ -154,7 +154,8 @@ def check_beats(report, where, beats, facts):
         if not all(isinstance(line, str) for line in screen):
             problem(report, place, "'screen' must be a list of text lines.", 8)
             screen = []
-        facts["texts"].append((place, "beat", " ".join([beat["text"]] + screen)))
+        speaker = beat.get("speaker", "")
+        facts["texts"].append((place, "beat", " ".join([speaker, beat["text"]] + screen)))
         if "when" in beat:
             check_condition(report, place, beat["when"], facts)
 
@@ -262,6 +263,13 @@ def check_shape(report, story):
         if check_object(report, where, ending, "an ending"):
             facts["texts"].append((where, "title", ending["title"]))
             check_beats(report, where, ending["beats"], facts)
+    for kind in ("fields", "meters"):                         # labels show in the status line
+        for item in story.get(kind, []):
+            if isinstance(item, dict) and isinstance(item.get("label"), str):
+                facts["texts"].append((f"{kind[:-1]} '{item.get('id')}'", "label", item["label"]))
+    for field_id, word, where in facts["written_values"]:     # 'set' values show there too
+        if isinstance(word, str):
+            facts["texts"].append((where, "value", word))
     for flag, where in facts["tested_flags"]:
         if flag not in facts["set_flags"]:
             problem(report, where, f"flag '{flag}' is tested, but no effect sets it. Check the spelling.", 10)
@@ -292,7 +300,8 @@ def moves(story, state, notes):
     for number, option in enumerate(engine.visible(group["options"], state), start=1):
         notes["seen_by"].setdefault((scene["id"], group["key"], option["key"]), set()).add(role)
         results = []
-        for rng in (HIGHEST, LOWEST):                          # every result the dice can reach
+        dice = (HIGHEST, LOWEST) if "roll" in option else (None,)   # only dice can differ
+        for rng in dice:                                       # every result the dice can reach
             new, beats, report = engine.choose(story, state, option["key"], rng)
             needs = None if report is None else report["result"]
             if needs not in results:
@@ -438,7 +447,9 @@ def check_kit(report):
         ok(report, "engine.py matches the kit")
     else:
         warning(report, "", "engine.py has changed since the kit was made. Put the kit's copy back.", "kit")
-    leak = re.compile(r"import engine|from engine|choose\(|state\[[^\]]*\]\s*[-+]?=(?!=)")  # section 12
+    leak = re.compile(r"import engine|from engine|choose\("               # section 12
+                      r"|state(\[[^\]]*\])+\s*[-+*/]?=(?!=)"              # state[...] = or state[a][b] +=
+                      r"|state(\[[^\]]*\])*\.(append|extend|insert|remove|pop|clear|update|setdefault)\(")
     for name in sorted(os.listdir(folder)):
         if name.startswith("display_") and name.endswith(".py"):
             with open(os.path.join(folder, name), encoding="utf-8") as file:

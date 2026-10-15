@@ -20,7 +20,7 @@ import display_plain
 
 WIDTH = 72
 DELAY = 0.02                # seconds per character for the typewriter
-SETTINGS = {"echo": False, "skip": False}
+SETTINGS = {"echo": False}
 
 # One colour per job (a "role"). These are ANSI codes.
 COLORS = {
@@ -81,31 +81,13 @@ def spaced(text):
     """Letter-space a title: 'THE END' becomes 'T H E   E N D'."""
     return " ".join(text.upper())
 
-def enter_pressed():
-    """True if the player pressed Enter. Works where select can read stdin."""
-    try:
-        import select
-        ready = select.select([sys.stdin], [], [], 0)[0]
-    except (ImportError, OSError, ValueError):
-        return False                       # Windows: no skipping
-    if ready:
-        sys.stdin.readline()
-        return True
-    return False
-
 def type_out(text, role="narration"):
-    """Print text one character at a time. Enter shows the rest at once."""
+    """Print text one character at a time.
+    It never reads the keyboard, so an answer typed early is kept for the next question."""
     for line in textwrap.wrap(text, WIDTH):
         line = emphasis(line)
-        if SETTINGS["skip"]:
-            print(color(line, role))
-            continue
         sys.stdout.write(f"\033[{COLORS[role]}m")
-        for index, char in enumerate(line):
-            if enter_pressed():
-                SETTINGS["skip"] = True
-                sys.stdout.write(line[index:])
-                break
+        for char in line:
             sys.stdout.write(char)
             sys.stdout.flush()
             time.sleep(DELAY)
@@ -122,7 +104,7 @@ def beat_out(beat):
 
 # ---------- The eleven display functions ----------
 def start(echo):
-    """Get ready. The skip flag resets before every question."""
+    """Get ready."""
     SETTINGS["echo"] = echo
     display_plain.start(echo)
 
@@ -199,7 +181,6 @@ def show_choices(group, options):
 def ask(prompt):
     if not effects_on():
         return display_plain.ask(prompt)
-    SETTINGS["skip"] = False
     sys.stdout.write(color(prompt, "bold"))
     sys.stdout.flush()
     try:
