@@ -1,0 +1,122 @@
+
+========================================================================
+  THE DEAD DROP
+  High Tech, Low Lives: Ann at the Harborview drop
+========================================================================
+Seed: 1
+
+== Seven Minutes Early ==
+(Harborview Cafe, 06:47)
+
+Three weeks since the feed went dark. You push through the door at 6:47,
+seven minutes early. Protocol: never be the last person at a dead drop.
+
+Three weeks of g0's protocols: text in dead image files, orders that are
+not orders, cups that mean coordinates.
+
+G0: Learn this. Prove you can do it. Then we talk about the Blackout.
+
+Today's protocol. Order a double espresso, no sugar. Set it at the
+corner table, handle to the window.
+
+Check the cup three seats down. A stirrer across the rim means the
+message is live. Photograph it with your student ID in frame. Leave.
+
+Simple. Except Manager Chen is already here.
+
+Chen, from Applied Systems. Your lecturer on Tuesdays and Thursdays, who
+marks late arrivals in red.
+
+She sits four tables away with a tablet and a cappuccino. You have never
+seen her anywhere before 8:55.
+
+The dead drop cup is three seats from her. Handle at four o'clock.
+Stirrer across the rim. Live.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5
+
+g0's file on you has one blank line. How do you work? [final]
+  1. The Enforcer
+     Chrome and muscle. Body +3.
+  2. The Hacker
+     The deck and the feed. Code +3.
+> 2
+
+The deck in your bag is warm against your hip. To you, every camera here
+is just another lock.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: hacker
+
+What do you take in first? Looking is free. [plan]
+  1. The cameras
+     No dice, no time. Find where the feed is blind.
+  2. Nothing
+     Trust the protocol.
+> 1
+
+Three cameras. One dead seat, behind the espresso machine. The feed
+forgot it.
+  | CH 1 DOOR: COVERED
+  | CH 2 COUNTER: COVERED
+  | CH 3 FLOOR: COVERED
+  | SEAT 9, BEHIND MACHINE: NOT COVERED
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: hacker
+
+What do you do? [plan]
+  1. Proceed with the dead drop
+     Make it look natural.
+  2. Abort and sit with Chen
+     Give up the drop. Hold on to your cover.
+> 2
+
+== The Safe Chair ==
+(Harborview Cafe, 06:50)
+
+The risk is too high. Chen is too observant, too present. You make the
+call in half a second. You walk to her table instead of the corner.
+
+ANN: Manager Chen. Mind if I sit?
+
+CHEN: Ann. You're here early.
+
+ANN: Couldn't sleep. I thought coffee might help before Thursday's exam.
+
+CHEN: Sit.
+
+The dead drop cup stays three seats away, untouched. Protocol abandoned.
+
+The talk is small: algorithms, the exam curve, the Harborview's burnt
+coffee. Chen's remarks about student stress are too precise for small
+talk.
+
+CHEN: I should get to my office. Good luck Thursday, Ann.
+
+The barista clears the dead drop cup ten minutes later. The window is
+closed.
+
+************************************************************************
+  SAFE, AND ALONE
+************************************************************************
+
+You finish your coffee in silence, watching the trawlers cut through
+gray water. Your phone vibrates once.
+  | SUBJECT 1: FRIENDLY CONTACT
+  | EVENT: NONE
+  | CONTACT: CLOSED
+  | FILE: CLOSED
+
+G0: You aborted. Smart or cowardly? Hard to say.
+
+G0: Chen is dangerous. You read that right. But I needed that
+confirmation.
+
+G0: No second chances on this one. Maybe later. Maybe never.
+
+If you want to see what happens when you take the risk, play again and
+proceed with the drop.
+
+THE END
+Trail: arrive > abort > aborted
+r = play again, q = quit > q
+Goodbye.

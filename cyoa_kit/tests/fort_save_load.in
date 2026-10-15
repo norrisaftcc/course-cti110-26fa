@@ -1,0 +1,16 @@
+# story: stories/fort.json seed: 1
+# Save at the cellar, listen, restart, then load: back at the cellar with
+# the trapdoor flag. Then finish as the Fighter. Ends at flooded_stair.
+1
+1
+1
+2
+s
+1
+r
+l
+1
+1
+1
+2
+q

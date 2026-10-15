@@ -1,0 +1,284 @@
+{
+  "id": "fort",
+  "title": "The Drowned Tower",
+  "subtitle": "Fort on the Lake: the island and the first cellars",
+  "start": "docks",
+  "fields": [
+    { "id": "role", "label": "Role" }
+  ],
+  "scenes": [
+    {
+      "id": "docks",
+      "title": "The Fort Docks",
+      "place": "The Fort, noon",
+      "beats": [
+        { "text": "The Fort docks. Captain Maren coils a wet rope and does not smile." },
+        { "speaker": "maren", "text": "Row to the Isle of Old Stone. Find out who lands there, and what moves in the water." },
+        { "text": "One boat. One hero. Maren waits to hear who goes." }
+      ],
+      "choices": [
+        {
+          "key": "role",
+          "ask": "Who rows to the Isle of Old Stone?",
+          "gate": "exec",
+          "options": [
+            { "key": "fighter", "label": "The Fighter",
+              "sub": "A sword and 8 hit points. Strong at doors.",
+              "effects": [ { "set": { "role": "fighter" } } ],
+              "then": [ { "text": "You belt on the sword and take the oars." } ] },
+            { "key": "wizard", "label": "The Wizard",
+              "sub": "A dagger, 4 hit points, and one Sleep spell.",
+              "effects": [ { "set": { "role": "wizard" } } ],
+              "then": [ { "text": "You tuck the dagger in your belt. The word of Sleep waits behind your teeth." } ] }
+          ]
+        }
+      ],
+      "next": "jetty"
+    },
+    {
+      "id": "jetty",
+      "title": "The Broken Jetty",
+      "place": "The Isle of Old Stone, sunset",
+      "beats": [
+        { "text": "Four hours of oars later, the sun is low and the island is close." },
+        { "text": "A stone jetty runs out from the south shore. Half of it has fallen into the lake." },
+        { "text": "On a mooring post, a rope burn shows pale and fresh: someone else lands here." },
+        { "text": "Past the end of the jetty, something large moves under the water, a long shadow, and is gone." }
+      ],
+      "choices": [
+        {
+          "key": "go",
+          "ask": "Where do you go?",
+          "gate": "plan",
+          "options": [
+            { "key": "tower", "label": "Walk up to the tower shell", "to": "tower" },
+            { "key": "home", "label": "Row back to the Fort",
+              "sub": "The delve ends here.", "to": "rowed_home" }
+          ]
+        }
+      ],
+      "next": "tower"
+    },
+    {
+      "id": "tower",
+      "title": "The Tower Shell",
+      "place": "The Isle of Old Stone",
+      "beats": [
+        { "text": "A round tower, thirty feet across, open to the sky. Its upper floors fell in long ago and lie as rubble on the ground." },
+        { "text": "A stair climbs the inside wall to a broken top forty feet up. Crows watch you from the rim with the calm of tax collectors." },
+        { "text": "The trapdoor lies open in the rubble. A stair goes down into the dark.", "when": { "flag": "trapdoor" } }
+      ],
+      "choices": [
+        {
+          "key": "look",
+          "ask": "What do you look at? Looking is free.",
+          "gate": "plan",
+          "options": [
+            { "key": "search", "label": "Search the rubble",
+              "when": { "not": { "flag": "trapdoor" } },
+              "effects": [ { "flag": "trapdoor" } ],
+              "then": [
+                { "text": "You shift stones for ten minutes. Under the rubble lies a trapdoor of black oak." },
+                { "text": "Its iron ring is furred with rust. It lifts with a groan." }
+              ] },
+            { "key": "climb", "label": "Climb the stair",
+              "then": [
+                { "text": "From the broken top you see the whole island: rock, pine, the jetty, the cottage." },
+                { "text": "At the north cliff a boat-shaped shadow lies on the water." }
+              ] },
+            { "key": "none", "label": "Move on" }
+          ]
+        },
+        {
+          "key": "go",
+          "ask": "Where do you go?",
+          "gate": "plan",
+          "options": [
+            { "key": "cottage", "label": "Walk to the keeper's cottage", "to": "cottage" },
+            { "key": "down", "label": "Go down through the trapdoor",
+              "when": { "flag": "trapdoor" }, "to": "cellar" },
+            { "key": "jetty", "label": "Walk back to the jetty", "to": "jetty" }
+          ]
+        }
+      ],
+      "next": "jetty"
+    },
+    {
+      "id": "cottage",
+      "title": "The Keeper's Cottage",
+      "place": "Beside the tower",
+      "beats": [
+        { "text": "A stone cottage beside the tower. The roof is gone." },
+        { "text": "The hearth holds ash less than a week old." },
+        { "text": "A tin of lamp oil sits on a shelf, enough for two flasks.", "when": { "not": { "flag": "oil" } } },
+        { "text": "On the door someone has chalked an eye with a line through it. It is not a greeting." }
+      ],
+      "choices": [
+        {
+          "key": "look",
+          "ask": "What do you do here? Looking is free.",
+          "gate": "plan",
+          "options": [
+            { "key": "oil", "label": "Take the tin of lamp oil",
+              "when": { "not": { "flag": "oil" } },
+              "effects": [ { "flag": "oil" } ],
+              "then": [ { "text": "You take the tin. It is heavy, and the oil in it is clean." } ] },
+            { "key": "chalk", "label": "Look at the chalked eye",
+              "then": [
+                { "text": "The chalk is white and fresh. One eye, wide open. One straight line through it, drawn hard." },
+                { "text": "Rain has not touched it yet." }
+              ] },
+            { "key": "leave", "label": "Leave it all" }
+          ]
+        },
+        {
+          "key": "go",
+          "ask": "Where do you go?",
+          "gate": "plan",
+          "options": [
+            { "key": "back", "label": "Go back to the tower", "to": "tower" }
+          ]
+        }
+      ],
+      "next": "tower"
+    },
+    {
+      "id": "cellar",
+      "title": "The Cellar Stair",
+      "place": "Under the tower",
+      "beats": [
+        { "text": "Under the trapdoor a stone stair goes down twenty feet. The air smells of old oil and wet stone." },
+        { "text": "At the bottom stands an oak door, swollen in its frame. It is stuck." },
+        { "text": "The door still holds. Whatever is behind it heard you try it.", "when": { "flag": "noise" } }
+      ],
+      "choices": [
+        {
+          "key": "listen",
+          "ask": "Listen at the door first?",
+          "gate": "plan",
+          "options": [
+            { "key": "listen", "label": "Listen at the door",
+              "then": [ { "text": "Scratching. Squeaks. Many small feet." } ] },
+            { "key": "skip", "label": "Do not listen" }
+          ]
+        },
+        {
+          "key": "door",
+          "ask": "The door is stuck. What do you do?",
+          "gate": "exec",
+          "options": [
+            { "key": "shoulder", "label": "Put your shoulder to the door",
+              "when": { "field": "role", "is": "fighter" },
+              "then": [ { "text": "The door bursts open with a crack like a dropped plank." } ],
+              "to": "store" },
+            { "key": "hinges", "label": "Oil the hinges, then push",
+              "when": { "flag": "oil" },
+              "effects": [ { "flag": "quiet" } ],
+              "then": [ { "text": "You work oil from the tin into each hinge. Then you push. The door swings open without a sound." } ],
+              "to": "store" },
+            { "key": "force", "label": "Force the door",
+              "when": { "field": "role", "is": "wizard" },
+              "effects": [ { "flag": "noise" } ],
+              "then": [ { "text": "The door shudders and holds. The noise rolls away into the dark." } ] }
+          ]
+        },
+        {
+          "key": "go",
+          "ask": "The door is still shut. Where do you go?",
+          "gate": "plan",
+          "options": [
+            { "key": "up", "label": "Climb back up to the tower", "to": "tower" },
+            { "key": "home", "label": "Row back to the Fort",
+              "sub": "The delve ends here.", "to": "rowed_home" }
+          ]
+        }
+      ],
+      "next": "tower"
+    },
+    {
+      "id": "store",
+      "title": "The Oil Store",
+      "place": "The first cellar",
+      "beats": [
+        { "text": "Racks of broken oil jars. The floor is tacky." },
+        { "text": "Five giant rats, each the size of a cat, lift their heads from the spill." },
+        { "text": "The oiled door made no sound.", "when": { "flag": "quiet" } },
+        { "text": "But they heard you at the door before. All five face the doorway.", "when": { "flag": "noise" } }
+      ],
+      "choices": [
+        {
+          "key": "rats",
+          "ask": "One rat leaps. What do you do?",
+          "gate": "exec",
+          "options": [
+            { "key": "fight", "label": "Hold the doorway and fight",
+              "when": { "field": "role", "is": "fighter" },
+              "effects": [ { "flag": "rats_gone" } ],
+              "then": [
+                { "text": "You hold the doorway. Only two rats can reach you at a time." },
+                { "text": "Your blow throws the first one back among the jars. Then the second." },
+                { "text": "The pack breaks. The rest flee down the far stair." }
+              ] },
+            { "key": "sleep", "label": "Speak the word of Sleep",
+              "when": { "field": "role", "is": "wizard" },
+              "effects": [ { "flag": "rats_gone" } ],
+              "then": [
+                { "text": "You speak the word of Sleep." },
+                { "text": "One by one the rats sag into the spill. Their whiskers twitch. They do not wake." }
+              ] },
+            { "key": "dagger", "label": "Fight with your dagger",
+              "when": { "field": "role", "is": "wizard" },
+              "then": [
+                { "text": "You strike at the first rat. It dodges. Two more come over the jars." },
+                { "text": "You fall among the broken jars. The rats close in." }
+              ],
+              "to": "fell" },
+            { "key": "back", "label": "Back up the stair",
+              "then": [ { "text": "You back up the stair. The rats do not follow." } ],
+              "to": "cellar" }
+          ]
+        },
+        {
+          "key": "loot",
+          "ask": "The room is yours. What now?",
+          "gate": "plan",
+          "options": [
+            { "key": "search", "label": "Search the racks",
+              "when": { "flag": "rats_gone" },
+              "effects": [ { "flag": "flasks" } ],
+              "then": [ { "text": "In one rack, five flasks of oil are still whole. You take them." } ] },
+            { "key": "on", "label": "Go on to the far stair",
+              "when": { "flag": "rats_gone" } }
+          ]
+        }
+      ],
+      "ending": "flooded_stair"
+    }
+  ],
+  "endings": {
+    "flooded_stair": {
+      "title": "The Flooded Stair",
+      "beats": [
+        { "text": "A second stair goes down into black water." },
+        { "text": "As you watch, the water climbs one step, as if the lake took a breath." },
+        { "text": "Five flasks of oil clink in your pack. That is light for another day.", "when": { "flag": "flasks" } },
+        { "text": "The first delve ends here. You row home to tell Maren what moves under the island." }
+      ]
+    },
+    "rowed_home": {
+      "title": "Back at the Fort",
+      "beats": [
+        { "text": "You row back across the dark water. The Fort's lamps come up out of the lake." },
+        { "text": "Captain Maren meets you at the docks. She does not smile." },
+        { "speaker": "maren", "text": "The island will still be there tomorrow. So will whoever lands on it." }
+      ]
+    },
+    "fell": {
+      "title": "Among the Broken Jars",
+      "beats": [
+        { "text": "Your torch rolls away across the oily floor and goes out." },
+        { "text": "Far above, the crows wait on the tower rim. Captain Maren will send someone else to the island." }
+      ]
+    }
+  }
+}

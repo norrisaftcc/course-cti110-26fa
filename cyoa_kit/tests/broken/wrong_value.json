@@ -1,0 +1,83 @@
+{
+  "id": "toy",
+  "title": "The Locked Gate",
+  "start": "gate",
+  "fields": [
+    { "id": "role", "label": "Role" }
+  ],
+  "scenes": [
+    {
+      "id": "gate",
+      "title": "The Gate",
+      "beats": [
+        { "text": "A rusty gate blocks the road. A lamp hangs on a hook beside it." }
+      ],
+      "choices": [
+        {
+          "key": "role",
+          "ask": "Who are you?",
+          "gate": "exec",
+          "options": [
+            { "key": "fighter", "label": "The Fighter", "sub": "Strong arms.",
+              "effects": [ { "set": { "role": "fighter" } } ] },
+            { "key": "wizard", "label": "The Wizard", "sub": "One spell.",
+              "effects": [ { "set": { "role": "wizard" } } ] }
+          ]
+        },
+        {
+          "key": "act",
+          "ask": "What do you do?",
+          "gate": "plan",
+          "options": [
+            { "key": "lamp", "label": "Take the lamp",
+              "effects": [ { "flag": "lamp" } ],
+              "then": [ { "text": "The lamp is warm. Someone lit it today." } ] },
+            { "key": "leave", "label": "Walk away", "to": "home" }
+          ]
+        }
+      ],
+      "next": "yard"
+    },
+    {
+      "id": "yard",
+      "title": "The Yard",
+      "beats": [
+        { "text": "Past the gate is a yard with a dark well." },
+        { "text": "Your lamp shows a ladder inside the well.", "when": { "flag": "lamp" } }
+      ],
+      "choices": [
+        {
+          "key": "well",
+          "ask": "What do you do at the well?",
+          "gate": "exec",
+          "options": [
+            { "key": "climb", "label": "Climb down the ladder",
+              "when": { "flag": "lamp" }, "to": "treasure" },
+            { "key": "lift", "label": "Lift the stone lid", "sub": "Fighter only.",
+              "when": { "field": "role", "is": "fighter" }, "to": "treasure" },
+            { "key": "light", "label": "Cast a light down the well", "sub": "Wizard only.",
+              "when": { "field": "role", "is": "wizzard" }, "to": "treasure" },
+            { "key": "back", "label": "Go home", "to": "home" }
+          ]
+        }
+      ],
+      "ending": "home"
+    }
+  ],
+  "endings": {
+    "treasure": {
+      "title": "Down the Well",
+      "beats": [
+        { "text": "At the bottom is a dry room and an old chest." },
+        { "text": "You lift the chest with one hand.", "when": { "field": "role", "is": "fighter" } },
+        { "text": "Your light shows a word carved on the lid.", "when": { "field": "role", "is": "wizard" } }
+      ]
+    },
+    "home": {
+      "title": "Home Before Dark",
+      "beats": [
+        { "text": "You walk home. The gate creaks behind you." }
+      ]
+    }
+  }
+}

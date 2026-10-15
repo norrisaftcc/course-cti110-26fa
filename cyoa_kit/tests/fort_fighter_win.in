@@ -1,0 +1,12 @@
+# story: stories/fort.json seed: 1
+# The Fighter: search the rubble, go down, listen, shoulder the door,
+# fight the rats, search the racks. Ends at flooded_stair.
+1
+1
+1
+2
+1
+1
+1
+1
+q

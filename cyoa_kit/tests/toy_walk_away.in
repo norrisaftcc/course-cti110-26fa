@@ -1,0 +1,6 @@
+# story: stories/toy.json seed: 1
+# The Fighter walks away at once, then restarts from the ending, then quits.
+1
+2
+r
+q

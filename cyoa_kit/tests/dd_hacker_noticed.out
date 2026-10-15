@@ -1,0 +1,198 @@
+
+========================================================================
+  THE DEAD DROP
+  High Tech, Low Lives: Ann at the Harborview drop
+========================================================================
+Seed: 3
+
+== Seven Minutes Early ==
+(Harborview Cafe, 06:47)
+
+Three weeks since the feed went dark. You push through the door at 6:47,
+seven minutes early. Protocol: never be the last person at a dead drop.
+
+Three weeks of g0's protocols: text in dead image files, orders that are
+not orders, cups that mean coordinates.
+
+G0: Learn this. Prove you can do it. Then we talk about the Blackout.
+
+Today's protocol. Order a double espresso, no sugar. Set it at the
+corner table, handle to the window.
+
+Check the cup three seats down. A stirrer across the rim means the
+message is live. Photograph it with your student ID in frame. Leave.
+
+Simple. Except Manager Chen is already here.
+
+Chen, from Applied Systems. Your lecturer on Tuesdays and Thursdays, who
+marks late arrivals in red.
+
+She sits four tables away with a tablet and a cappuccino. You have never
+seen her anywhere before 8:55.
+
+The dead drop cup is three seats from her. Handle at four o'clock.
+Stirrer across the rim. Live.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5
+
+g0's file on you has one blank line. How do you work? [final]
+  1. The Enforcer
+     Chrome and muscle. Body +3.
+  2. The Hacker
+     The deck and the feed. Code +3.
+> 2
+
+The deck in your bag is warm against your hip. To you, every camera here
+is just another lock.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: hacker
+
+What do you take in first? Looking is free. [plan]
+  1. The cameras
+     No dice, no time. Find where the feed is blind.
+  2. Nothing
+     Trust the protocol.
+> 2
+
+You keep your eyes on the menu board. You learn nothing. The feed learns
+nothing either.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: hacker
+
+What do you do? [plan]
+  1. Proceed with the dead drop
+     Make it look natural.
+  2. Abort and sit with Chen
+     Give up the drop. Hold on to your cover.
+> 1
+
+== Double Espresso ==
+(Harborview Cafe, 06:49)
+
+You step to the counter. The barista's nails click on the register
+screen. She does not look up from her own feed.
+
+ANN: Double espresso, no sugar.
+
+Your voice is steady. The machine hisses. You count four heartbeats. Now
+the register wants payment. Whatever you hand over, the feed will read.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: hacker
+
+How do you pay? [final]
+  1. Tap the student card
+     Names you: Ann Sho. Exposure +1.
+  2. Pay in coins
+     Names no one. Exposure +0.
+  3. Show the Harker badge
+     Names you: Sable Harker. Exposure +2.
+> 3
+
+The reader chirps orange. It is AlgoCratic's own reader, and it reports
+its own badge.
+  | SUBJECT 1
+  | NAME: SABLE HARKER
+  | SOURCE: BADGE B2C7
+  | CLEARANCE: ORANGE
+  | CONF 99%
+
+== Three Seats Down ==
+(Harborview Cafe, 06:51)
+
+The barista slides the cup across scratched steel. You carry it to the
+corner table, the one with the peeling laminate. Handle to the window.
+Exactly to protocol.
+
+Now the hard part. The cup you must check is three seats down. Chen is
+four tables away. She is reading, but she is *present*. One unnatural
+glance and she will remember.
+
+The camera over the floor runs on the cafe's open network. Your deck can
+feed it six seconds of an empty seat.
+
+Exposure 3/6  Nerves 0/4  Systems 0/5  |  Role: hacker  Identity shown:
+Sable Harker (staff badge)
+
+Make the pass? [final]
+  1. Loop the camera for six seconds
+     4dF + Code (+3) vs 2
+> 1
+
+Roll 4dF [-1, 1, 1, -1] + code 3 = 3 vs 2: SUCCESS
+
+Six seconds of an empty seat play on CH 3. You walk through them. The ID
+comes up. *Click.*
+
+Cup, stirrer and timestamp. The loop closes behind you without a seam.
+
+== Chen Stands ==
+(Harborview Cafe, 07:02)
+
+You sit. The espresso is bitter and cooling fast.
+
+Chen gathers her tablet and coat. She stops at your table.
+
+CHEN: Ann. Didn't expect to see you here this early.
+
+ANN: Coffee before algorithms. Thought I'd try consciousness for once.
+
+CHEN: Admirable. You always sit in corners?
+
+The question lands odd. Weighted.
+
+ANN: Better light. The window faces east.
+
+In your bag the deck still hums. Her tablet sits on the cafe's open
+network, one hop away.
+
+Exposure 3/6  Nerves 0/4  Systems 0/5  |  Role: hacker  Identity shown:
+Sable Harker (staff badge)  The drop: Complete
+
+Chen is still in the room. Anything else? [final]
+  1. Talk about the exam
+     No change.
+  2. Ping her tablet with a fake alert
+     Exposure -1. Nerves +1.
+> 1
+
+ANN: Is Thursday's exam on the whole term?
+
+CHEN: On everything, Ann. It always is.
+
+== Dead Image File ==
+(Harborview Cafe, 07:09)
+
+Chen is gone. The door chime rings once, and cold air follows it. Your
+phone vibrates on the table.
+
+A dead image file. You decode it in three seconds.
+
+G0: Adequate. You completed the protocol under pressure.
+
+G0: Campus mailbox tomorrow, 4 PM. We talk about the Blackout then.
+
+G0: You used the Harker badge. We will discuss the badge.
+
+G0: Your deck is good. Do not let it make you forget that people have
+eyes.
+
+************************************************************************
+  A NAME ON THE FRAME
+************************************************************************
+
+The feed keeps the day. It is not a crime. It is a note.
+  | SUBJECT 1: MEDIUM EXPOSURE
+  | EVENT: NOTED, CH 3
+  | FLAG: NONE
+  | FILE: OPEN
+
+The file carries the name Sable Harker, an AlgoCratic employee, seen far
+from her desk.
+
+Tomorrow, four o'clock, the campus mailbox. You will go. You will go the
+long way.
+
+THE END
+Trail: arrive > counter > drop > table > phone > noticed
+r = play again, q = quit > q
+Goodbye.

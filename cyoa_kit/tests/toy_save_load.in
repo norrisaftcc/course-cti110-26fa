@@ -1,0 +1,9 @@
+# story: stories/toy.json seed: 1
+# Pick the Wizard, save, restart, load the save, then play on.
+2
+s
+r
+l
+1
+2
+q

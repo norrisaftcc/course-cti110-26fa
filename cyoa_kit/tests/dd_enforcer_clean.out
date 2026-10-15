@@ -1,0 +1,201 @@
+
+========================================================================
+  THE DEAD DROP
+  High Tech, Low Lives: Ann at the Harborview drop
+========================================================================
+Seed: 1
+
+== Seven Minutes Early ==
+(Harborview Cafe, 06:47)
+
+Three weeks since the feed went dark. You push through the door at 6:47,
+seven minutes early. Protocol: never be the last person at a dead drop.
+
+Three weeks of g0's protocols: text in dead image files, orders that are
+not orders, cups that mean coordinates.
+
+G0: Learn this. Prove you can do it. Then we talk about the Blackout.
+
+Today's protocol. Order a double espresso, no sugar. Set it at the
+corner table, handle to the window.
+
+Check the cup three seats down. A stirrer across the rim means the
+message is live. Photograph it with your student ID in frame. Leave.
+
+Simple. Except Manager Chen is already here.
+
+Chen, from Applied Systems. Your lecturer on Tuesdays and Thursdays, who
+marks late arrivals in red.
+
+She sits four tables away with a tablet and a cappuccino. You have never
+seen her anywhere before 8:55.
+
+The dead drop cup is three seats from her. Handle at four o'clock.
+Stirrer across the rim. Live.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5
+
+g0's file on you has one blank line. How do you work? [final]
+  1. The Enforcer
+     Chrome and muscle. Body +3.
+  2. The Hacker
+     The deck and the feed. Code +3.
+> 1
+
+Your chrome hand whirs as the door closes behind you. Steel under the
+skin. You go through people and doors.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: enforcer
+
+What do you take in first? Looking is free. [plan]
+  1. The cameras
+     No dice, no time. Find where the feed is blind.
+  2. Nothing
+     Trust the protocol.
+> 1
+
+Three cameras. One dead seat, behind the espresso machine. The feed
+forgot it.
+  | CH 1 DOOR: COVERED
+  | CH 2 COUNTER: COVERED
+  | CH 3 FLOOR: COVERED
+  | SEAT 9, BEHIND MACHINE: NOT COVERED
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: enforcer
+
+What do you do? [plan]
+  1. Proceed with the dead drop
+     Make it look natural.
+  2. Abort and sit with Chen
+     Give up the drop. Hold on to your cover.
+> 1
+
+== Double Espresso ==
+(Harborview Cafe, 06:49)
+
+You step to the counter. The barista's nails click on the register
+screen. She does not look up from her own feed.
+
+ANN: Double espresso, no sugar.
+
+Your voice is steady. The machine hisses. You count four heartbeats. Now
+the register wants payment. Whatever you hand over, the feed will read.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: enforcer
+
+How do you pay? [final]
+  1. Tap the student card
+     Names you: Ann Sho. Exposure +1.
+  2. Pay in coins
+     Names no one. Exposure +0.
+  3. Show the Harker badge
+     Names you: Sable Harker. Exposure +2.
+> 2
+
+Coins on scratched steel. The barista does not look up. The name field
+stays black.
+  | SUBJECT 1
+  | NAME: ##########
+  | SOURCE: NONE
+  | CONF 38%
+
+== Three Seats Down ==
+(Harborview Cafe, 06:51)
+
+The barista slides the cup across scratched steel. You carry it to the
+corner table, the one with the peeling laminate. Handle to the window.
+Exactly to protocol.
+
+Now the hard part. The cup you must check is three seats down. Chen is
+four tables away. She is reading, but she is *present*. One unnatural
+glance and she will remember.
+
+Your chrome hand is faster than the camera's frame rate. Between two
+frames, a hand can do a lot.
+
+You know the dead seat. It is on your way.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: enforcer  Identity
+shown: Unnamed (cash)
+
+Make the pass? [final]
+  1. Palm the message past the camera
+     4dF + Body (+3) vs 2
+  2. Walk the blind line
+     No roll. Needs the camera cones.
+> 2
+
+You cut behind the espresso machine, into the seat the cameras forgot.
+The ID comes up. *Click.* Cup, stirrer and timestamp.
+
+No camera saw you take it. Chen did not look up.
+
+== Chen Stands ==
+(Harborview Cafe, 07:02)
+
+You sit. The espresso is bitter and cooling fast.
+
+Chen gathers her tablet and coat. She stops at your table.
+
+CHEN: Ann. Didn't expect to see you here this early.
+
+ANN: Coffee before algorithms. Thought I'd try consciousness for once.
+
+CHEN: Admirable. You always sit in corners?
+
+The question lands odd. Weighted.
+
+ANN: Better light. The window faces east.
+
+Your chrome hand ticks as it cools. Chen's eyes rest on it a moment too
+long.
+
+Exposure 1/6  Nerves 0/4  Systems 0/5  |  Role: enforcer  Identity
+shown: Unnamed (cash)  The drop: Clean
+
+Chen is still in the room. Anything else? [final]
+  1. Talk about the exam
+     No change.
+  2. Rest the chrome hand on the table, between her and the cup
+     Exposure -1. Systems +1.
+> 1
+
+ANN: Is Thursday's exam on the whole term?
+
+CHEN: On everything, Ann. It always is.
+
+== Dead Image File ==
+(Harborview Cafe, 07:09)
+
+Chen is gone. The door chime rings once, and cold air follows it. Your
+phone vibrates on the table.
+
+A dead image file. You decode it in three seconds.
+
+G0: Adequate. You completed the protocol under pressure.
+
+G0: Campus mailbox tomorrow, 4 PM. We talk about the Blackout then.
+
+G0: Cash. Old school. I approve.
+
+G0: Your hand is good. Do not let it make you loud.
+
+************************************************************************
+  UNRESOLVED
+************************************************************************
+
+The feed closes the day with one person unnamed, or named and forgotten.
+There is nothing to report.
+  | SUBJECT 1: LOW EXPOSURE
+  | EVENT: NONE
+  | FLAG: NONE
+  | FILE: CLOSED
+
+You walk out into the early light. The mailbox is tomorrow, at four.
+Whatever g0 tells you about the Blackout, the feed will not hear it
+first.
+
+THE END
+Trail: arrive > counter > drop > table > phone > clean
+r = play again, q = quit > q
+Goodbye.

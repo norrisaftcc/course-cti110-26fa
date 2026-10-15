@@ -1,0 +1,53 @@
+
+========================================================================
+  THE LOCKED GATE
+========================================================================
+Seed: 1
+
+== The Gate ==
+
+A rusty gate blocks the road. A lamp hangs on a hook beside it.
+
+Who are you? [final]
+  1. The Fighter
+     Strong arms.
+  2. The Wizard
+     One spell.
+> 2
+
+Role: wizard
+
+What do you do? [plan]
+  1. Take the lamp
+  2. Walk away
+> 1
+
+The lamp is warm. Someone lit it today.
+
+== The Yard ==
+
+Past the gate is a yard with a dark well.
+
+Your lamp shows a ladder inside the well.
+
+Role: wizard
+
+What do you do at the well? [final]
+  1. Climb down the ladder
+  2. Cast a light down the well
+     Wizard only.
+  3. Go home
+> 1
+
+************************************************************************
+  DOWN THE WELL
+************************************************************************
+
+At the bottom is a dry room and an old chest.
+
+Your light shows a word carved on the lid.
+
+THE END
+Trail: gate > yard > treasure
+r = play again, q = quit > q
+Goodbye.
