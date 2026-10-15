@@ -1,0 +1,15 @@
+OK engine.py matches the kit
+OK shape: 2 scenes, 3 endings, 1 field, 0 meters.
+PROBLEM ending 'secret': no path reaches this ending. Add a way in or cut it. (rule 15)
+OK no stuck spots: every state can still reach an ending.
+OK real decision: scene 'gate', group 'act'.
+OK lever: scene 'gate' sets role to fighter or wizard.
+WARNING 2 scenes: a final project needs 6 to 15. (rule 20)
+OK role fighter reaches: home, treasure
+OK shortest way to home (role fighter): type 1 2 (2 picks)
+OK shortest way to treasure (role fighter): type 1 1 1 (3 picks)
+OK role wizard reaches: home, treasure
+OK shortest way to home (role wizard): type 2 2 (2 picks)
+OK shortest way to treasure (role wizard): type 2 1 1 (3 picks)
+OK the checker explored 13 states.
+RESULT: FAIL (1 problems, 1 warnings)

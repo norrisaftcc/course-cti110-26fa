@@ -1,0 +1,335 @@
+{
+  "id": "dead_drop",
+  "title": "The Dead Drop",
+  "subtitle": "High Tech, Low Lives: Ann at the Harborview drop",
+  "start": "arrive",
+  "resolver": "fate4df",
+  "fields": [
+    { "id": "role", "label": "Role" },
+    { "id": "identity", "label": "Identity shown" },
+    { "id": "drop", "label": "The drop" }
+  ],
+  "meters": [
+    { "id": "exposure", "label": "Exposure", "min": 0, "max": 6, "start": 1 },
+    { "id": "nerves", "label": "Nerves", "min": 0, "max": 4, "start": 0 },
+    { "id": "systems", "label": "Systems", "min": 0, "max": 5, "start": 0 },
+    { "id": "body", "label": "Body", "min": 0, "max": 3, "start": 0, "hud": false },
+    { "id": "code", "label": "Code", "min": 0, "max": 3, "start": 0, "hud": false }
+  ],
+  "scenes": [
+    {
+      "id": "arrive",
+      "title": "Seven Minutes Early",
+      "place": "Harborview Cafe, 06:47",
+      "beats": [
+        { "text": "Three weeks since the feed went dark. You push through the door at 6:47, seven minutes early. Protocol: never be the last person at a dead drop." },
+        { "text": "Three weeks of g0's protocols: text in dead image files, orders that are not orders, cups that mean coordinates." },
+        { "speaker": "g0", "text": "Learn this. Prove you can do it. Then we talk about the Blackout." },
+        { "text": "Today's protocol. Order a double espresso, no sugar. Set it at the corner table, handle to the window." },
+        { "text": "Check the cup three seats down. A stirrer across the rim means the message is live. Photograph it with your student ID in frame. Leave." },
+        { "text": "Simple. Except Manager Chen is already here." },
+        { "text": "Chen, from Applied Systems. Your lecturer on Tuesdays and Thursdays, who marks late arrivals in red." },
+        { "text": "She sits four tables away with a tablet and a cappuccino. You have never seen her anywhere before 8:55." },
+        { "text": "The dead drop cup is three seats from her. Handle at four o'clock. Stirrer across the rim. Live." }
+      ],
+      "choices": [
+        {
+          "key": "role",
+          "ask": "g0's file on you has one blank line. How do you work?",
+          "gate": "exec",
+          "options": [
+            { "key": "enforcer", "label": "The Enforcer",
+              "sub": "Chrome and muscle. Body +3.",
+              "effects": [ { "set": { "role": "enforcer" } }, { "meter": "body", "add": 3 } ],
+              "then": [ { "text": "Your chrome hand whirs as the door closes behind you. Steel under the skin. You go through people and doors." } ] },
+            { "key": "hacker", "label": "The Hacker",
+              "sub": "The deck and the feed. Code +3.",
+              "effects": [ { "set": { "role": "hacker" } }, { "meter": "code", "add": 3 } ],
+              "then": [ { "text": "The deck in your bag is warm against your hip. To you, every camera here is just another lock." } ] }
+          ]
+        },
+        {
+          "key": "observe",
+          "ask": "What do you take in first? Looking is free.",
+          "gate": "plan",
+          "options": [
+            { "key": "cones", "label": "The cameras",
+              "sub": "No dice, no time. Find where the feed is blind.",
+              "effects": [ { "flag": "cones" } ],
+              "then": [
+                { "text": "Three cameras. One dead seat, behind the espresso machine. The feed forgot it.",
+                  "screen": [ "CH 1 DOOR: COVERED", "CH 2 COUNTER: COVERED", "CH 3 FLOOR: COVERED", "SEAT 9, BEHIND MACHINE: NOT COVERED" ] }
+              ] },
+            { "key": "none", "label": "Nothing",
+              "sub": "Trust the protocol.",
+              "then": [ { "text": "You keep your eyes on the menu board. You learn nothing. The feed learns nothing either." } ] }
+          ]
+        },
+        {
+          "key": "approach",
+          "ask": "What do you do?",
+          "gate": "plan",
+          "options": [
+            { "key": "direct", "label": "Proceed with the dead drop",
+              "sub": "Make it look natural.", "to": "counter" },
+            { "key": "abort", "label": "Abort and sit with Chen",
+              "sub": "Give up the drop. Hold on to your cover.",
+              "effects": [ { "set": { "drop": "Skipped" } } ],
+              "to": "abort" }
+          ]
+        }
+      ],
+      "next": "counter"
+    },
+    {
+      "id": "counter",
+      "title": "Double Espresso",
+      "place": "Harborview Cafe, 06:49",
+      "beats": [
+        { "text": "You step to the counter. The barista's nails click on the register screen. She does not look up from her own feed." },
+        { "speaker": "ann", "text": "Double espresso, no sugar." },
+        { "text": "Your voice is steady. The machine hisses. You count four heartbeats. Now the register wants payment. Whatever you hand over, the feed will read." }
+      ],
+      "choices": [
+        {
+          "key": "pay",
+          "ask": "How do you pay?",
+          "gate": "exec",
+          "options": [
+            { "key": "card", "label": "Tap the student card",
+              "sub": "Names you: Ann Sho. Exposure +1.",
+              "effects": [ { "meter": "exposure", "add": 1 }, { "set": { "identity": "Ann Sho (student card)" } } ],
+              "then": [
+                { "text": "12 yen leaves your stipend. The transaction burns into the campus network with your name on it.",
+                  "screen": [ "SUBJECT 1", "NAME: ANN SHO", "SOURCE: STUDENT CARD", "CONF 91%" ] }
+              ] },
+            { "key": "cash", "label": "Pay in coins",
+              "sub": "Names no one. Exposure +0.",
+              "effects": [ { "set": { "identity": "Unnamed (cash)" } } ],
+              "then": [
+                { "text": "Coins on scratched steel. The barista does not look up. The name field stays black.",
+                  "screen": [ "SUBJECT 1", "NAME: ##########", "SOURCE: NONE", "CONF 38%" ] }
+              ] },
+            { "key": "badge", "label": "Show the Harker badge",
+              "sub": "Names you: Sable Harker. Exposure +2.",
+              "effects": [ { "meter": "exposure", "add": 2 }, { "set": { "identity": "Sable Harker (staff badge)" } } ],
+              "then": [
+                { "text": "The reader chirps orange. It is AlgoCratic's own reader, and it reports its own badge.",
+                  "screen": [ "SUBJECT 1", "NAME: SABLE HARKER", "SOURCE: BADGE B2C7", "CLEARANCE: ORANGE", "CONF 99%" ] }
+              ] }
+          ]
+        }
+      ],
+      "next": "drop"
+    },
+    {
+      "id": "drop",
+      "title": "Three Seats Down",
+      "place": "Harborview Cafe, 06:51",
+      "beats": [
+        { "text": "The barista slides the cup across scratched steel. You carry it to the corner table, the one with the peeling laminate. Handle to the window. Exactly to protocol." },
+        { "text": "Now the hard part. The cup you must check is three seats down. Chen is four tables away. She is reading, but she is *present*. One unnatural glance and she will remember." },
+        { "text": "Your chrome hand is faster than the camera's frame rate. Between two frames, a hand can do a lot.",
+          "when": { "field": "role", "is": "enforcer" } },
+        { "text": "The camera over the floor runs on the cafe's open network. Your deck can feed it six seconds of an empty seat.",
+          "when": { "field": "role", "is": "hacker" } },
+        { "text": "You know the dead seat. It is on your way.", "when": { "flag": "cones" } }
+      ],
+      "choices": [
+        {
+          "key": "pass",
+          "ask": "Make the pass?",
+          "gate": "exec",
+          "options": [
+            { "key": "muscle", "label": "Palm the message past the camera",
+              "sub": "4dF + Body (+3) vs 2",
+              "when": { "field": "role", "is": "enforcer" },
+              "roll": {
+                "dice": "4dF", "add": "body", "vs": 2,
+                "results": {
+                  "fail": {
+                    "effects": [ { "flag": "bad" }, { "meter": "exposure", "add": 2 }, { "meter": "systems", "add": 1 }, { "set": { "drop": "Missed" } } ],
+                    "then": [
+                      { "text": "The chrome catches a chair back. The servos grind. Chen looks up, straight at you, with your hand halfway to your pocket." },
+                      { "text": "You freeze. The photo is gone and the motion was wrong. You put the ID away like you were only checking it." }
+                    ] },
+                  "success": {
+                    "effects": [ { "flag": "ok" }, { "meter": "exposure", "add": 1 }, { "set": { "drop": "Complete" } } ],
+                    "then": [
+                      { "text": "You drift past Chen's table like someone looking for a seat. Three steps. The chrome hand turns the ID and the phone together, faster than the frame. *Click.*" },
+                      { "text": "Cup, stirrer and timestamp. The camera saw a big shape walk by. That is all it saw." }
+                    ] }
+                }
+              } },
+            { "key": "loop", "label": "Loop the camera for six seconds",
+              "sub": "4dF + Code (+3) vs 2",
+              "when": { "field": "role", "is": "hacker" },
+              "roll": {
+                "dice": "4dF", "add": "code", "vs": 2,
+                "results": {
+                  "fail": {
+                    "effects": [ { "flag": "bad" }, { "meter": "exposure", "add": 2 }, { "meter": "nerves", "add": 1 }, { "set": { "drop": "Missed" } } ],
+                    "then": [
+                      { "text": "The loop stutters. For half a second the feed shows two of you. Chen's tablet blinks, and she looks up, straight at you." },
+                      { "text": "You freeze. No photo. You put the ID away like you were only checking it." }
+                    ] },
+                  "success": {
+                    "effects": [ { "flag": "ok" }, { "set": { "drop": "Complete" } } ],
+                    "then": [
+                      { "text": "Six seconds of an empty seat play on CH 3. You walk through them. The ID comes up. *Click.*" },
+                      { "text": "Cup, stirrer and timestamp. The loop closes behind you without a seam." }
+                    ] }
+                }
+              } },
+            { "key": "blind", "label": "Walk the blind line",
+              "sub": "No roll. Needs the camera cones.",
+              "when": { "flag": "cones" },
+              "effects": [ { "flag": "ok" }, { "set": { "drop": "Clean" } } ],
+              "then": [
+                { "text": "You cut behind the espresso machine, into the seat the cameras forgot. The ID comes up. *Click.* Cup, stirrer and timestamp." },
+                { "text": "No camera saw you take it. Chen did not look up." }
+              ] }
+          ]
+        }
+      ],
+      "next": "table"
+    },
+    {
+      "id": "table",
+      "title": "Chen Stands",
+      "place": "Harborview Cafe, 07:02",
+      "beats": [
+        { "text": "You sit. The espresso is bitter and cooling fast." },
+        { "text": "Chen gathers her tablet and coat. She stops at your table.", "when": { "flag": "ok" } },
+        { "speaker": "chen", "text": "Ann. Didn't expect to see you here this early.", "when": { "flag": "ok" } },
+        { "speaker": "ann", "text": "Coffee before algorithms. Thought I'd try consciousness for once.", "when": { "flag": "ok" } },
+        { "speaker": "chen", "text": "Admirable. You always sit in corners?", "when": { "flag": "ok" } },
+        { "text": "The question lands odd. Weighted.", "when": { "flag": "ok" } },
+        { "speaker": "ann", "text": "Better light. The window faces east.", "when": { "flag": "ok" } },
+        { "speaker": "chen", "text": "Ann?", "when": { "flag": "bad" } },
+        { "speaker": "ann", "text": "Manager Chen. Hi. I was just looking for a seat.", "when": { "flag": "bad" } },
+        { "text": "Her eyes go from you to the cup with the stirrer across the rim, and back. She says nothing. She stays, reading but *present*.", "when": { "flag": "bad" } },
+        { "speaker": "chen", "text": "You seem distracted, Ann. If something is wrong, academically or otherwise, my office hours are Wednesdays.", "when": { "flag": "bad" } },
+        { "speaker": "chen", "text": "Fatigue makes people careless. Careless people make mistakes they cannot take back.", "when": { "flag": "bad" } },
+        { "text": "It is an offer or a threat. You cannot tell which.", "when": { "flag": "bad" } },
+        { "text": "Your chrome hand ticks as it cools. Chen's eyes rest on it a moment too long.",
+          "when": { "field": "role", "is": "enforcer" } },
+        { "text": "In your bag the deck still hums. Her tablet sits on the cafe's open network, one hop away.",
+          "when": { "field": "role", "is": "hacker" } }
+      ],
+      "choices": [
+        {
+          "key": "cover",
+          "ask": "Chen is still in the room. Anything else?",
+          "gate": "exec",
+          "options": [
+            { "key": "exam", "label": "Talk about the exam",
+              "sub": "No change.",
+              "then": [
+                { "speaker": "ann", "text": "Is Thursday's exam on the whole term?" },
+                { "speaker": "chen", "text": "On everything, Ann. It always is." }
+              ] },
+            { "key": "ping", "label": "Ping her tablet with a fake alert",
+              "sub": "Exposure -1. Nerves +1.",
+              "when": { "field": "role", "is": "hacker" },
+              "effects": [ { "meter": "exposure", "add": -1 }, { "meter": "nerves", "add": 1 } ],
+              "then": [ { "text": "Her tablet buzzes. A campus alert, urgent and false. Her eyes drop to it and stay there. Your pulse is loud." } ] },
+            { "key": "rest", "label": "Rest the chrome hand on the table, between her and the cup",
+              "sub": "Exposure -1. Systems +1.",
+              "when": { "field": "role", "is": "enforcer" },
+              "effects": [ { "meter": "exposure", "add": -1 }, { "meter": "systems", "add": 1 } ],
+              "then": [ { "text": "You set the chrome hand down flat. Now it is all the camera sees of the cup. The wrist servo grinds under the load." } ] }
+          ]
+        }
+      ],
+      "next": "phone"
+    },
+    {
+      "id": "phone",
+      "title": "Dead Image File",
+      "place": "Harborview Cafe, 07:09",
+      "beats": [
+        { "text": "Chen is gone. The door chime rings once, and cold air follows it. Your phone vibrates on the table." },
+        { "text": "A dead image file. You decode it in three seconds." },
+        { "speaker": "g0", "text": "Adequate. You completed the protocol under pressure.", "when": { "flag": "ok" } },
+        { "speaker": "g0", "text": "Campus mailbox tomorrow, 4 PM. We talk about the Blackout then.", "when": { "flag": "ok" } },
+        { "speaker": "g0", "text": "Mission failure. Chen is too observant and you were not ready.", "when": { "flag": "bad" } },
+        { "speaker": "g0", "text": "I am not burning you yet. Everyone fails a first live drop.", "when": { "flag": "bad" } },
+        { "speaker": "g0", "text": "Debrief tomorrow, 4 PM, campus mailbox.", "when": { "flag": "bad" } },
+        { "speaker": "g0", "text": "You used the Harker badge. We will discuss the badge.",
+          "when": { "field": "identity", "is": "Sable Harker (staff badge)" } },
+        { "speaker": "g0", "text": "Cash. Old school. I approve.",
+          "when": { "field": "identity", "is": "Unnamed (cash)" } },
+        { "speaker": "g0", "text": "Your hand is good. Do not let it make you loud.",
+          "when": { "field": "role", "is": "enforcer" } },
+        { "speaker": "g0", "text": "Your deck is good. Do not let it make you forget that people have eyes.",
+          "when": { "field": "role", "is": "hacker" } }
+      ],
+      "route": [
+        { "when": { "flag": "bad" }, "to": "debrief" },
+        { "when": { "meter": "exposure", "lte": 2 }, "to": "clean" },
+        { "to": "noticed" }
+      ]
+    },
+    {
+      "id": "abort",
+      "title": "The Safe Chair",
+      "place": "Harborview Cafe, 06:50",
+      "beats": [
+        { "text": "The risk is too high. Chen is too observant, too present. You make the call in half a second. You walk to her table instead of the corner." },
+        { "speaker": "ann", "text": "Manager Chen. Mind if I sit?" },
+        { "speaker": "chen", "text": "Ann. You're here early." },
+        { "speaker": "ann", "text": "Couldn't sleep. I thought coffee might help before Thursday's exam." },
+        { "speaker": "chen", "text": "Sit." },
+        { "text": "The dead drop cup stays three seats away, untouched. Protocol abandoned." },
+        { "text": "The talk is small: algorithms, the exam curve, the Harborview's burnt coffee. Chen's remarks about student stress are too precise for small talk." },
+        { "speaker": "chen", "text": "I should get to my office. Good luck Thursday, Ann." },
+        { "text": "The barista clears the dead drop cup ten minutes later. The window is closed." }
+      ],
+      "ending": "aborted"
+    }
+  ],
+  "endings": {
+    "clean": {
+      "title": "Unresolved",
+      "beats": [
+        { "text": "The feed closes the day with one person unnamed, or named and forgotten. There is nothing to report.",
+          "screen": [ "SUBJECT 1: LOW EXPOSURE", "EVENT: NONE", "FLAG: NONE", "FILE: CLOSED" ] },
+        { "text": "You walk out into the early light. The mailbox is tomorrow, at four. Whatever g0 tells you about the Blackout, the feed will not hear it first." }
+      ]
+    },
+    "noticed": {
+      "title": "A Name on the Frame",
+      "beats": [
+        { "text": "The feed keeps the day. It is not a crime. It is a note.",
+          "screen": [ "SUBJECT 1: MEDIUM EXPOSURE", "EVENT: NOTED, CH 3", "FLAG: NONE", "FILE: OPEN" ] },
+        { "text": "The file carries the name Ann Sho, a student, seen at a cafe before class.",
+          "when": { "field": "identity", "is": "Ann Sho (student card)" } },
+        { "text": "The file carries no name. It carries a face, and a time, and a cafe.",
+          "when": { "field": "identity", "is": "Unnamed (cash)" } },
+        { "text": "The file carries the name Sable Harker, an AlgoCratic employee, seen far from her desk.",
+          "when": { "field": "identity", "is": "Sable Harker (staff badge)" } },
+        { "text": "Tomorrow, four o'clock, the campus mailbox. You will go. You will go the long way." }
+      ]
+    },
+    "debrief": {
+      "title": "Debrief",
+      "beats": [
+        { "text": "The drop is blown. The photo is missing. Chen saw you, and said what she said. g0 has not burned you.",
+          "screen": [ "SUBJECT 1: FAILED EVENT", "PHOTO: NONE", "CONTACT: STILL OPEN", "FILE: OPEN" ] },
+        { "text": "Tomorrow you go to the mailbox and explain what went wrong. You will not enjoy it. You will learn from it." }
+      ]
+    },
+    "aborted": {
+      "title": "Safe, and Alone",
+      "beats": [
+        { "text": "You finish your coffee in silence, watching the trawlers cut through gray water. Your phone vibrates once.",
+          "screen": [ "SUBJECT 1: FRIENDLY CONTACT", "EVENT: NONE", "CONTACT: CLOSED", "FILE: CLOSED" ] },
+        { "speaker": "g0", "text": "You aborted. Smart or cowardly? Hard to say." },
+        { "speaker": "g0", "text": "Chen is dangerous. You read that right. But I needed that confirmation." },
+        { "speaker": "g0", "text": "No second chances on this one. Maybe later. Maybe never." },
+        { "text": "If you want to see what happens when you take the risk, play again and proceed with the drop." }
+      ]
+    }
+  }
+}

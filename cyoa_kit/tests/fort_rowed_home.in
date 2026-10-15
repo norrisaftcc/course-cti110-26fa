@@ -1,0 +1,11 @@
+# story: stories/fort.json seed: 1
+# The Wizard has no oil. Forcing the door fails and makes noise, so the
+# Wizard rows home. Ends at rowed_home.
+2
+1
+1
+2
+1
+1
+2
+q

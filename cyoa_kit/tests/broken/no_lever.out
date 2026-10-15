@@ -1,0 +1,10 @@
+OK engine.py matches the kit
+OK shape: 2 scenes, 2 endings, 1 field, 0 meters.
+OK endings reached: 2 of 2
+OK no stuck spots: every state can still reach an ending.
+OK real decision: scene 'gate', group 'act'.
+PROBLEM scene 'gate': the start scene must set 'role' to 2 or 3 values, not 0. (rule 18)
+WARNING 2 scenes: a final project needs 6 to 15. (rule 20)
+WARNING 2 endings: a final project needs 3 or more. (rule 20)
+OK the checker explored 10 states.
+RESULT: FAIL (1 problems, 2 warnings)

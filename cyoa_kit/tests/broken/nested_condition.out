@@ -1,0 +1,4 @@
+OK engine.py matches the kit
+PROBLEM scene 'yard', group 'well', option 'climb': 'all' holds not, all or any. One level only: use a flag. (rule 10)
+WARNING the story was not played, because of the problems above. (rules 14-21)
+RESULT: FAIL (1 problems, 1 warnings)

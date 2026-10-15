@@ -1,0 +1,200 @@
+
+========================================================================
+  THE DROWNED TOWER
+  Fort on the Lake: the island and the first cellars
+========================================================================
+Seed: 1
+
+== The Fort Docks ==
+(The Fort, noon)
+
+The Fort docks. Captain Maren coils a wet rope and does not smile.
+
+MAREN: Row to the Isle of Old Stone. Find out who lands there, and what
+moves in the water.
+
+One boat. One hero. Maren waits to hear who goes.
+
+Who rows to the Isle of Old Stone? [final]
+  1. The Fighter
+     A sword and 8 hit points. Strong at doors.
+  2. The Wizard
+     A dagger, 4 hit points, and one Sleep spell.
+> 2
+
+You tuck the dagger in your belt. The word of Sleep waits behind your
+teeth.
+
+== The Broken Jetty ==
+(The Isle of Old Stone, sunset)
+
+Four hours of oars later, the sun is low and the island is close.
+
+A stone jetty runs out from the south shore. Half of it has fallen into
+the lake.
+
+On a mooring post, a rope burn shows pale and fresh: someone else lands
+here.
+
+Past the end of the jetty, something large moves under the water, a long
+shadow, and is gone.
+
+Role: wizard
+
+Where do you go? [plan]
+  1. Walk up to the tower shell
+  2. Row back to the Fort
+     The delve ends here.
+> 1
+
+== The Tower Shell ==
+(The Isle of Old Stone)
+
+A round tower, thirty feet across, open to the sky. Its upper floors
+fell in long ago and lie as rubble on the ground.
+
+A stair climbs the inside wall to a broken top forty feet up. Crows
+watch you from the rim with the calm of tax collectors.
+
+Role: wizard
+
+What do you look at? Looking is free. [plan]
+  1. Search the rubble
+  2. Climb the stair
+  3. Move on
+> 1
+
+You shift stones for ten minutes. Under the rubble lies a trapdoor of
+black oak.
+
+Its iron ring is furred with rust. It lifts with a groan.
+
+Role: wizard
+
+Where do you go? [plan]
+  1. Walk to the keeper's cottage
+  2. Go down through the trapdoor
+  3. Walk back to the jetty
+> 1
+
+== The Keeper's Cottage ==
+(Beside the tower)
+
+A stone cottage beside the tower. The roof is gone.
+
+The hearth holds ash less than a week old.
+
+A tin of lamp oil sits on a shelf, enough for two flasks.
+
+On the door someone has chalked an eye with a line through it. It is not
+a greeting.
+
+Role: wizard
+
+What do you do here? Looking is free. [plan]
+  1. Take the tin of lamp oil
+  2. Look at the chalked eye
+  3. Leave it all
+> 1
+
+You take the tin. It is heavy, and the oil in it is clean.
+
+Role: wizard
+
+Where do you go? [plan]
+  1. Go back to the tower
+> 1
+
+== The Tower Shell ==
+(The Isle of Old Stone)
+
+A round tower, thirty feet across, open to the sky. Its upper floors
+fell in long ago and lie as rubble on the ground.
+
+A stair climbs the inside wall to a broken top forty feet up. Crows
+watch you from the rim with the calm of tax collectors.
+
+The trapdoor lies open in the rubble. A stair goes down into the dark.
+
+Role: wizard
+
+What do you look at? Looking is free. [plan]
+  1. Climb the stair
+  2. Move on
+> 1
+
+From the broken top you see the whole island: rock, pine, the jetty, the
+cottage.
+
+At the north cliff a boat-shaped shadow lies on the water.
+
+Role: wizard
+
+Where do you go? [plan]
+  1. Walk to the keeper's cottage
+  2. Go down through the trapdoor
+  3. Walk back to the jetty
+> 2
+
+== The Cellar Stair ==
+(Under the tower)
+
+Under the trapdoor a stone stair goes down twenty feet. The air smells
+of old oil and wet stone.
+
+At the bottom stands an oak door, swollen in its frame. It is stuck.
+
+Role: wizard
+
+Listen at the door first? [plan]
+  1. Listen at the door
+  2. Do not listen
+> 1
+
+Scratching. Squeaks. Many small feet.
+
+Role: wizard
+
+The door is stuck. What do you do? [final]
+  1. Oil the hinges, then push
+  2. Force the door
+> 1
+
+You work oil from the tin into each hinge. Then you push. The door
+swings open without a sound.
+
+== The Oil Store ==
+(The first cellar)
+
+Racks of broken oil jars. The floor is tacky.
+
+Five giant rats, each the size of a cat, lift their heads from the
+spill.
+
+The oiled door made no sound.
+
+Role: wizard
+
+One rat leaps. What do you do? [final]
+  1. Speak the word of Sleep
+  2. Fight with your dagger
+  3. Back up the stair
+> 2
+
+You strike at the first rat. It dodges. Two more come over the jars.
+
+You fall among the broken jars. The rats close in.
+
+************************************************************************
+  AMONG THE BROKEN JARS
+************************************************************************
+
+Your torch rolls away across the oily floor and goes out.
+
+Far above, the crows wait on the tower rim. Captain Maren will send
+someone else to the island.
+
+THE END
+Trail: docks > jetty > tower > cottage > tower > cellar > store > fell
+r = play again, q = quit > q
+Goodbye.

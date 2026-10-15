@@ -1,0 +1,3 @@
+OK engine.py matches the kit
+PROBLEM tests/broken/bad_json.json line 12, column 7: Expecting ',' delimiter. Look for a missing comma, quote or bracket there. (rule 1)
+RESULT: FAIL (1 problems, 0 warnings)

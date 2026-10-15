@@ -1,0 +1,10 @@
+# story: stories/dead_drop.json seed: 3
+# The Hacker shows the Harker badge (Exposure 3), then loops the camera.
+# Seed 3 rolls a success. Exposure stays 3. Ends at noticed.
+2
+2
+1
+3
+1
+1
+q

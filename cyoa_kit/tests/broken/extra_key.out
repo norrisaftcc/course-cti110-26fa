@@ -1,0 +1,4 @@
+OK engine.py matches the kit
+PROBLEM scene 'yard': 'chioces' is not allowed in a scene. Allowed: id, title, place, beats, choices, next, ending, route. (rule 2)
+WARNING the story was not played, because of the problems above. (rules 14-21)
+RESULT: FAIL (1 problems, 1 warnings)
