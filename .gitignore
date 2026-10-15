@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# CYOA unit: files the labs and the kit write while you play
+save_*.json
+hero_save.json
+endings.db
