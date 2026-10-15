@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "outputStyle": "CTI 110 Tutor",
+  "permissions": {
+    "allow": [
+      "Bash(python3 checker.py stories/story.json)",
+      "Bash(python3 tests/run_tests.py)"
+    ],
+    "deny": [
+      "Edit(**/engine.py)",
+      "Edit(**/checker.py)",
+      "Edit(**/tests/run_tests.py)",
+      "Edit(**/stories/**)",
+      "Edit(**/tests/*.in)",
+      "Edit(**/prompts.md)",
+      "Edit(**/AI-DISCLOSURE.md)",
+      "NotebookEdit",
+      "Read(**/ai-tutor/**)"
+    ]
+  }
+}
