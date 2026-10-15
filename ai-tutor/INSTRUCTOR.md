@@ -46,8 +46,8 @@ The wording is from `cti110-refresh-planning/CTI-110-ai-assistance-ladder.md`.
 | **Learning style** | `# TODO(human)` lines described in words, in the reply. | Same; plus the review round. | `# TODO(human)` put in the file at the key line of each feature (at least one per feature), then stop and wait. |
 | **Disclosure** | None needed. | Reminds the student to write a review note and a disclosure line. | Reminds the student to log each prompt in `prompts.md` and keep `AI-DISCLOSURE.md` current. |
 | **Checks** | - | Suggests same-input, same-output with `diff`. | After each change runs `python3 checker.py stories/story.json` and `python3 tests/run_tests.py` in `cyoa_kit/` and reports the last lines; explains each change. |
-| **Claude Code `permissions.deny`** | `Edit`, `Write`, `NotebookEdit` (tool-level), `Read(**/ai-tutor/**)` | Same as Rung 2 | `Edit(**/engine.py)`, `Edit(**/checker.py)`, `Edit(**/tests/run_tests.py)`, `Edit(**/stories/**)`, `Edit(**/tests/*.in)`, `Edit(**/prompts.md)`, `Edit(**/AI-DISCLOSURE.md)`, `NotebookEdit`, `Read(**/ai-tutor/**)` |
-| **Claude Code `permissions.allow`** | none | none | `Bash(python3 checker.py stories/story.json)`, `Bash(python3 tests/run_tests.py)` (exact commands, so `--regen` still asks) |
+| **Claude Code `permissions.deny`** | `Edit`, `Write`, `NotebookEdit`, `Bash` (tool-level), `Read(**/ai-tutor/**)` | Same as Rung 2 | `Edit(**/engine.py)`, `Edit(**/checker.py)`, `Edit(**/tests/run_tests.py)`, `Edit(**/stories/**)`, `Edit(**/tests/*.in)`, `Edit(**/prompts.md)`, `Edit(**/AI-DISCLOSURE.md)`, `NotebookEdit`, `Read(**/ai-tutor/**)` |
+| **Claude Code `permissions.allow`** | none | none | The two checks as exact commands, from the repository top (`python3 cyoa_kit/checker.py cyoa_kit/stories/story.json`, `python3 cyoa_kit/tests/run_tests.py`) and from inside `cyoa_kit/`. Anything else, `--regen` included, still asks. |
 
 **Shared at every rung:** plain words at about a 10th-grade level; ask what the student tried and expected before helping; a short **Why** note; the hint ladder (1 a question, 2 the concept, 3 pseudocode or a partial line, 4 an example only as far as the rung allows); one understanding-check question at the end; a kind restatement of the rung when the student says "just give me the answer"; spec first (expected output in a lab, US-F in the final); Python 3.10+, standard library only, no `class`, no `global`, small named functions, `main()` at the bottom, the 4-line header; never claim to have run code it did not run.
 
@@ -167,7 +167,7 @@ Notes: the Claude Code feature installs Node.js if the image lacks it; if that f
 ## 6. Limits to say out loud
 
 - Instruction files guide the tool. They do not lock it. A student can open any chatbot in a browser.
-- In Claude Code the deny rules are real limits on Claude's own file tools, and on recognised shell file commands (`sed`, `tee`, `>` redirects). They do **not** stop a script that writes files itself (for example `python3 -c` with `open(..., "w")`). The output styles tell Claude not to work around the rules.
+- In Claude Code the deny rules are real limits on Claude's own file tools. At Rungs 2 and 3 the shell (`Bash`) is denied too, so Claude cannot change a file with `sed`, a `>` redirect or a script. The student runs their own programs; that is part of the lesson. At Rung 4 the shell asks before each command except the two checks, so a student who approves a command that writes a file has let the AI write it. The output styles tell Claude not to work around the rules.
 - Copilot has no equivalent of the deny rules here.
 - The Ladder's enforcement is the assignment design: predict before run, `diff` and golden runs, the blueprint gate, and the presentation. "The presentation is the audit."
 

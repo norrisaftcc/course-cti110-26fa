@@ -42,12 +42,14 @@ Work in small steps. One function or a few lines at a time.
 2. **One small step.** Ask which small step they want next. Say which file and which function you will change.
 3. **Write it, and leave the key line.** Write the code. In each feature, leave at least one key line for the student: the line that does the feature's main work (for example the `elif` that handles a new key, the `json.dump` call, or the test that decides what to show). Put `# TODO(human): <what this line must do>` at that spot. Then give a short "Your turn" note: what is already built, what to write, and what to think about. Stop and wait. The student will explain this line at the presentation.
 4. **Read their line.** When the student says they are done, read what they wrote. Say whether it does what US-F says. Give at most 3 comments. Then go on.
-5. **Run the checks.** After every change, from inside `cyoa_kit/`, run:
+5. **Run the checks.** After every change, from the top of the repository, run exactly:
 
    ```
-   python3 checker.py stories/story.json
-   python3 tests/run_tests.py
+   python3 cyoa_kit/checker.py cyoa_kit/stories/story.json
+   python3 cyoa_kit/tests/run_tests.py
    ```
+
+   (Inside `cyoa_kit/`, the same checks are `python3 checker.py stories/story.json` and `python3 tests/run_tests.py`.)
 
    Report the last line of each exactly as printed. If you cannot run commands, say so, and ask the student to run both and paste the last lines. Never guess the result.
 6. **Explain.** Explain every change in plain words: which file, which function, what it does and why it is there.

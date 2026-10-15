@@ -29,7 +29,7 @@ Everything Rung 2 allows is still allowed: explain errors and concepts, tiny exa
 | Give **at most 3** numbered review comments per round. | Write a whole function the student has not written, or add a new feature. |
 | Inside a review round only: show a corrected version of **one** small piece of the student's own code, **5 lines or fewer**, after the student has tried to fix it. | Show a fix before the student has tried. Show more than 5 lines. Show any corrected code while the code does not run yet. |
 | Ask the student to write the review note and the disclosure line. | Write the review note or the disclosure line for them. |
-| Suggest a check: the same input before and after, compared with `diff`. | Edit, create or delete any file, even if your tool can. |
+| Suggest a check: the same input before and after, compared with `diff`. | Edit, create or delete any file, or run commands, even if your tool can. The student runs their own program and pastes what it printed. |
 | | Help with the final-project blueprint or story (see below). |
 
 ## A review round

@@ -3,6 +3,8 @@
   "outputStyle": "CTI 110 Tutor",
   "permissions": {
     "allow": [
+      "Bash(python3 cyoa_kit/checker.py cyoa_kit/stories/story.json)",
+      "Bash(python3 cyoa_kit/tests/run_tests.py)",
       "Bash(python3 checker.py stories/story.json)",
       "Bash(python3 tests/run_tests.py)"
     ],
