@@ -10,6 +10,17 @@
 #    room = ROOMS[room](hero) looks up the function, then calls it.
 # 3. The LEVER: the docks ask Fighter or Wizard. Later rooms test hero["role"].
 
+# WHAT THIS TEACHES
+#   - Functions are VALUES. You can store one in a dict and call it later.
+#   - A dispatch table: look up the right function by name, then call it.
+#     It replaces a long if/elif chain, and it does not grow when rooms do.
+#   - A mutable dict passed to a function is the SAME dict. If a room
+#     changes it, main() sees the change. No return is needed for that.
+#     (The room still returns the next room id. That is a different job.)
+#   - A story "lever": an early choice that changes what is possible later.
+#     The wizard who skipped the cottage meets a stuck door. Choices cost.
+# Five giant rats wait at the end. They have been very patient.
+
 
 # ask() shows a prompt and returns the answer, trimmed and in lower case
 def ask(prompt):
@@ -27,6 +38,8 @@ def ask_choice(prompt, choices):
 
 # Each room takes the hero dict and RETURNS the next room id (or "end").
 # A room may change the dict: hero["role"] = ..., hero["items"].append(...)
+# Every room takes hero, even one that does not use it (like jetty). The
+# dispatch loop calls them all the same way, so they must all fit the same shape.
 def docks(hero):
     print()
     print("The Fort docks. Captain Maren coils a wet rope and does not smile.")
@@ -35,6 +48,7 @@ def docks(hero):
     print("  2. The Wizard: 4 hit points")
     pick = ask_choice("Pick 1 or 2: ", ["1", "2"])
     # THE LEVER: an early choice, stored as a field on the character sheet
+    # Assigning to a key changes the caller's dict. We do not need to return it.
     if pick == "1":
         hero["role"] = "fighter"
         hero["hp"] = 8
@@ -76,8 +90,10 @@ def cottage(hero):
     print("S3. THE KEEPER'S COTTAGE")
     print("No roof. Ash in the hearth, less than a week old. A tin of lamp oil.")
     # Only offer the oil once: test the items list with "in"
+    # "not in" is True when the list does not hold the item yet.
     if "oil" not in hero["items"]:
         if ask_choice("Take the lamp oil? (y/n): ", ["y", "n"]) == "y":
+            # .append() changes the list inside hero. main() will see it.
             hero["items"].append("oil")
             print("You take the oil.")
     return "tower"
@@ -88,6 +104,7 @@ def cellar(hero):
     print("C1. THE CELLAR STAIR")
     print("At the bottom stands an oak door, swollen in its frame. It is stuck.")
     # THE LEVER again: the same door, a different way through for each role
+    # The menu text changes with the hero. The outcomes below must match it.
     if hero["role"] == "fighter":
         print("  1. Force the door (Fighter)")
     elif "oil" in hero["items"]:
@@ -104,6 +121,8 @@ def cellar(hero):
         print("The oiled door swings open without a sound.")
         return "store"
     print("The door will not move. Oil from the cottage might help.")
+    # Returning "cellar" sends the hero here AGAIN, through the main loop.
+    # It is a loop, not a function calling itself, so the pile stays flat.
     return "cellar"
 
 
@@ -117,6 +136,8 @@ def store(hero):
 
 
 # A dict of FUNCTIONS. No () here: we store the function, we do not call it.
+# Write docks() and Python RUNS it. Write docks and Python just holds it.
+# Each key is the same room id that the rooms return.
 ROOMS = {
     "docks": docks,
     "jetty": jetty,
@@ -139,9 +160,16 @@ def show_sheet(hero):
 def main():
     # INPUT -- start the character sheet. docks() fills in role and hp.
     name = input("What is your hero's name? ").strip()
+    # Empty values now; the rooms fill them in as the story goes on.
     hero = {"name": name, "role": "", "hp": 0, "items": []}
 
     # PROCESSING -- the dispatch loop. Look up the room, call it, save the id.
+    # Read the one line from the inside out:
+    #   ROOMS[room]        -> the function for this room id
+    #   ROOMS[room](hero)  -> call it, passing the character sheet
+    #   room = ...         -> keep what it returns: the next room id
+    # A misspelled room id would raise a KeyError here. That is useful: it
+    # stops the game at once and names the bad id.
     room = "docks"
     while room != "end":
         room = ROOMS[room](hero)
