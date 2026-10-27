@@ -6,6 +6,7 @@
 #   Large Potion heals 25 HP. Small Potion heals 5 HP.
 # Run it now (it works). In P5T you turn it into a function.
 
+import random
 
 def drink_potions(hp_missing):
     # input: hp_missing -> max healing possible
@@ -26,9 +27,27 @@ def drink_potions(hp_missing):
 
     print("Still missing:", hp_missing, "HP")
 
+def get_random_gold():
+    # Returns a float -- how much gold was found
+    gold = round(random.uniform(0.01, 100.00), 2)
+    return gold
+    
+
 def main():
-    hp_missing = int(input("Enter HP missing: "))
+    #hp_missing = int(input("Enter HP missing: "))
+    #drink_potions(hp_missing)
+    max_hp = int(input("What is your max HP? "))
+    hp = random.randint(1, max_hp)
+    print(f"A goblin hits you. You have {hp} HP left.")
+    hp_missing = max_hp - hp
+    print(f"You are missing {hp_missing} HP.")
     drink_potions(hp_missing)
+
+    # get random gold
+    gold = get_random_gold()
+    print(f"You find {gold:.2f} gold in the chest.")
+
+
 
 # Start the program
 main()
