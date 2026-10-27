@@ -6,10 +6,10 @@
 #   Large Potion heals 25 HP. Small Potion heals 5 HP.
 # Run it now (it works). In P5T you turn it into a function.
 
-# PART ONE - ADD MAIN
-def main():
-    hp_missing = int(input("Enter HP missing: "))
 
+def drink_potions(hp_missing):
+    # input: hp_missing -> max healing possible
+    # output: prints potions used
     large = hp_missing // 25
     hp_missing = hp_missing % 25
     if large == 1:
@@ -26,5 +26,10 @@ def main():
 
     print("Still missing:", hp_missing, "HP")
 
+def main():
+    hp_missing = int(input("Enter HP missing: "))
+    drink_potions(hp_missing)
+
 # Start the program
 main()
+
