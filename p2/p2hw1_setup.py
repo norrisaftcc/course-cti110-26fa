@@ -3,12 +3,14 @@
 # Talk about how to format the display
 
 # WHAT THIS TEACHES
-#   - Lining up a label column and a value column with f-string widths.
+#   - Lining up a column of VALUES with f-string widths. Each label is padded
+#     to the same width, so the values that follow it start in the same place.
 #   - {text:<15} means: left-align in a field 15 characters wide.
 #   - {number:<15.2f} adds: show as a float with 2 decimals.
 #   - A dollar sign OUTSIDE the braces is just text, printed as it is.
-# Run it and the colons line up like soldiers. Change one 15 and watch the
-# column fall apart. That is the lesson.
+# Run it and the values line up like soldiers. The colons do not: each label
+# is a different length, so its colon lands in a different place. Change one
+# 15 and watch the value column fall apart. That is the lesson.
 # NOTE: quotes inside an f-string's braces may match the outer quotes only
 # in Python 3.12 or newer. On an older Python, use single quotes inside.
 

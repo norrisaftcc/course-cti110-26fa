@@ -2,10 +2,15 @@
 # Clean vertical stack, right-aligned decimals, deterministic slot widths
 
 # WHAT THIS TEACHES
-#   - Report columns that line up, using f-string width and alignment:
-#         {value:<W}  left-align in W spaces
-#         {value:>W}  right-align in W spaces
-#         {value:>W.2f}  right-align a float with 2 decimals
+#   - Report columns that line up, using f-string width and alignment.
+#     Here W stands for a width. Write a number, or put a variable in its
+#     own braces (a nested field), as the code below does:
+#         {value:<18}    left-align in 18 spaces
+#         {value:>8}     right-align in 8 spaces
+#         {value:>8.2f}  right-align a float with 2 decimals
+#         {value:>{W}.2f}  the same, with the width taken from the variable W
+#     Without the inner braces, {value:>W.2f} is an error. Python reads the
+#     W as part of the format code, not as your variable.
 #   - Put each width in a named constant, so you change it in one place.
 #   - A for loop that unpacks each tuple into named parts.
 #   - Slicing ([:N]) to cut off text that is too long.
