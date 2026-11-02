@@ -26,6 +26,17 @@
 #
 # p5lab2_norris.py fixes the trap: a room RETURNS the next room's id.
 
+# WHAT THIS TEACHES
+#   - The call stack: a function that calls another function must WAIT for
+#     it to finish. Waiting calls stack up, like plates in a sink.
+#   - Recursion: a function that (directly or through another) calls itself.
+#     jetty -> tower -> jetty -> tower is recursion in a costume.
+#   - RecursionError: what Python does when the stack gets too tall.
+#     It is a safety stop, not a bug in Python. Be glad it exists.
+#   - Why "return a value, let a loop decide" is the better design.
+# This file is wrong on purpose. Do not fix it. Break it, then read the
+# traceback. Then open p5lab2_norris.py to see the cure.
+
 
 # ask() shows a prompt and returns the answer, trimmed and in lower case
 def ask(prompt):
@@ -42,6 +53,7 @@ def ask_yes_no(prompt):
 
 
 # depth = how many room calls are waiting. auto = True walks on its own.
+# depth is the only thing that makes the pile visible. Each call adds 1.
 def jetty(depth, auto):
     print()
     print(f"S1. THE BROKEN JETTY  (calls deep: {depth})")
@@ -50,9 +62,12 @@ def jetty(depth, auto):
         tower(depth + 1, auto)         # THE TRAP: a room calls a room
     elif ask_yes_no("Walk up to the tower? (y/n): ") == "y":
         tower(depth + 1, auto)         # THE TRAP: a room calls a room
+        # This line is AFTER the call, so it waits until tower() ends.
+        # If tower() calls jetty() again, this line waits even longer.
         print(f"  (late line: jetty at depth {depth} ends now)")   # THE LATE LINE
 
 
+# tower() has no late line, but it still waits on jetty() the same way.
 def tower(depth, auto):
     print()
     print(f"S2. THE TOWER SHELL  (calls deep: {depth})")
@@ -71,6 +86,7 @@ def main():
         mode = ask("Type walk to walk yourself, or auto to let the rooms walk: ")
 
     # PROCESSING -- the first room call. Every other call happens inside it.
+    # "mode == 'auto'" is a True/False value, passed in as the auto argument.
     jetty(1, mode == "auto")
 
     # OUTPUT -- this line runs only after EVERY room call has ended
