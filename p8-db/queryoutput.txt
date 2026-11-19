@@ -1,0 +1,48 @@
+
+============================================================
+1) All users
+============================================================
+(1, 'Naruto', 'Uzumaki', 'ramen@example.com', 'naruto_u', 'LoveRamen1', '2026-06-01', 'JAPAN', 16)
+(2, 'Monkey D.', 'Luffy', 'meat@example.com', 'luffy_m', 'KingPirate1', '2026-06-02', 'JAPAN', 17)
+(3, 'Goku', 'Son', 'training@example.com', 'goku_s', 'SaiyanPower1', '2026-06-03', 'JAPAN', 18)
+(4, 'Tanjiro', 'Kamado', 'wisteria@example.com', 'tanjiro_k', 'Hinokami1', '2026-06-04', 'JAPAN', 15)
+(5, 'Peter', 'Parker', 'webslinger@example.com', 'peter_p', 'SpideySense1', '2026-06-05', 'USA', 17)
+(6, 'Ichigo', 'Kurosaki', 'soulreaper@example.com', 'ichigo_k', 'BankaiBleach1', '2026-06-06', 'JAPAN', 17)
+(7, 'Edward', 'Elric', 'alchemy@example.com', 'edward_e', 'Fullmetal1', '2026-06-07', 'AMESTRIS', 16)
+(8, 'Spike', 'Spiegel', 'bebop@example.com', 'spike_s', 'SeeYouSpace1', '2026-06-08', 'MARS', 27)
+(9, 'Light', 'Yagami', 'justice@example.com', 'light_y', 'DeathNote1', '2026-06-09', 'JAPAN', 17)
+(10, 'Clark', 'Kent', 'dailyplanet@example.com', 'clark_k', 'KryptonSon1', '2026-06-10', 'USA', 28)
+
+============================================================
+2) Name + Email
+============================================================
+('Naruto', 'Uzumaki', 'ramen@example.com')
+('Monkey D.', 'Luffy', 'meat@example.com')
+('Goku', 'Son', 'training@example.com')
+('Tanjiro', 'Kamado', 'wisteria@example.com')
+('Peter', 'Parker', 'webslinger@example.com')
+('Ichigo', 'Kurosaki', 'soulreaper@example.com')
+('Edward', 'Elric', 'alchemy@example.com')
+('Spike', 'Spiegel', 'bebop@example.com')
+('Light', 'Yagami', 'justice@example.com')
+('Clark', 'Kent', 'dailyplanet@example.com')
+
+============================================================
+3) Users from USA
+============================================================
+(5, 'Peter', 'Parker', 'webslinger@example.com', 'peter_p', 'SpideySense1', '2026-06-05', 'USA', 17)
+(10, 'Clark', 'Kent', 'dailyplanet@example.com', 'clark_k', 'KryptonSon1', '2026-06-10', 'USA', 28)
+
+============================================================
+4) Total user count
+============================================================
+(10,)
+
+============================================================
+5) 3 most recent signups
+============================================================
+('clark_k', '2026-06-10')
+('light_y', '2026-06-09')
+('spike_s', '2026-06-08')
+
+✅ Finished running 5 queries.
